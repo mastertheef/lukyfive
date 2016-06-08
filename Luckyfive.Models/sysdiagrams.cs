@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Luckyfive.DataAccess
+namespace Luckyfive.Models
 {
     using System;
     using System.Collections.Generic;

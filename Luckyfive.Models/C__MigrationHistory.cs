@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Luckyfive.DataAccess
+namespace Luckyfive.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class vw_aspnet_Applications
+    public partial class C__MigrationHistory
     {
-        public string ApplicationName { get; set; }
-        public string LoweredApplicationName { get; set; }
-        public System.Guid ApplicationId { get; set; }
-        public string Description { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Luckyfive.DataAccess
+namespace Luckyfive.Models
 {
     using System;
     using System.Collections.Generic;
@@ -28,10 +28,10 @@ namespace Luckyfive.DataAccess
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
         public int Status { get; set; }
-        public System.Guid OwnerId { get; set; }
         public int Tokens { get; set; }
+        public int OwnerId { get; set; }
     
-        public virtual aspnet_Membership aspnet_Membership { get; set; }
+        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participations> Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

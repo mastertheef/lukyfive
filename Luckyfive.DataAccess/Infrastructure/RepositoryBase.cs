@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Luckyfive.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Luckyfive.DataAccess.Infrastructure
     public abstract class RepositoryBase<T> where T : class
     {
         #region Properties
-        private LuckyfiveEntities dataContext;
+        private Entities dataContext;
         private readonly IDbSet<T> dbSet;
 
         protected IDbFactory DbFactory
@@ -20,7 +21,7 @@ namespace Luckyfive.DataAccess.Infrastructure
             private set;
         }
 
-        protected LuckyfiveEntities DbContext
+        protected Entities DbContext
         {
             get { return dataContext ?? (dataContext = DbFactory.Init()); }
         }

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Luckyfive.Models;
 
 namespace Luckyfive.DataAccess.Infrastructure
 {
     public class DbFactory : Disposable, IDbFactory
     {
-        LuckyfiveEntities dbContext;
+        Entities dbContext;
 
-        public LuckyfiveEntities Init()
+        public Entities Init()
         {
-            return dbContext ?? (dbContext = new LuckyfiveEntities());
+            return dbContext ?? (dbContext = new Entities());
         }
 
         protected override void DisposeCore()

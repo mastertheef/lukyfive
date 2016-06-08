@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Luckyfive.DataAccess
+namespace Luckyfive.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,13 +15,13 @@ namespace Luckyfive.DataAccess
     public partial class Participations
     {
         public int Id { get; set; }
-        public Nullable<System.Guid> UserId { get; set; }
         public int AdvId { get; set; }
         public int Tokens { get; set; }
         public Nullable<int> TempUserId { get; set; }
+        public int UserId { get; set; }
     
         public virtual Advertisments Advertisments { get; set; }
-        public virtual aspnet_Membership aspnet_Membership { get; set; }
         public virtual TemporaryParticipants TemporaryParticipants { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

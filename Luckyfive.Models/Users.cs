@@ -7,13 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Luckyfive.DataAccess
+namespace Luckyfive.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Users
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Users()
+        {
+            this.Advertisments = new HashSet<Advertisments>();
+            this.Participations = new HashSet<Participations>();
+        }
+    
         public int Id { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
@@ -21,5 +28,11 @@ namespace Luckyfive.DataAccess
         public string Phone { get; set; }
         public Nullable<bool> Active { get; set; }
         public string Password { get; set; }
+        public string UserName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Advertisments> Advertisments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Participations> Participations { get; set; }
     }
 }
