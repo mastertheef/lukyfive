@@ -10,6 +10,10 @@ namespace Luckyfive.Controllers
     {
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.UserName = this.User.Identity.Name;
+            }
             return View();
         }
 

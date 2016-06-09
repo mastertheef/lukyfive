@@ -25,30 +25,28 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active">@Html.ActionLink("Створити Lucky", "Index", "Home")</li>
                     <li>@Html.ActionLink("Створити об'яву", "About", "Home")</li>
-                    <li>@Html.ActionLink("Мій профіль", "MyProfile", "Account")</li>
+                    
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@ViewBag.UserName<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Мої Lucky акції", "LuckyActions", "Profile")</li>
+                                <li>@Html.ActionLink("Мої об'яви", "Advertisments", "Profile")</li>
+                                <li>@Html.ActionLink("Налаштування", "Options", "Profile")</li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Вийти", "Logout", "Login")</li>
+                            </ul>
+                        </li>
+                    }
+                    else {
+                        <li>@Html.ActionLink("Мій профіль", "MyProfile", "Account")</li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
     <br />
-    <div class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <div class="col-sm-11">
-                                <input type="text" class="form-control" placeholder="Пошук">
-                            </div>
-                            <div class="col-sm-1">
-                                <a class="btn btn-primary">Пошук</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
