@@ -25,12 +25,9 @@ namespace Luckyfive.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Advertisments> Advertisments { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Participations> Participations { get; set; }
         public virtual DbSet<Photos> Photos { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TemporaryParticipants> TemporaryParticipants { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
     }
 }

@@ -18,10 +18,9 @@ namespace Luckyfive.Models
         public int AdvId { get; set; }
         public int Tokens { get; set; }
         public Nullable<int> TempUserId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     
         public virtual Advertisments Advertisments { get; set; }
-        public virtual TemporaryParticipants TemporaryParticipants { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

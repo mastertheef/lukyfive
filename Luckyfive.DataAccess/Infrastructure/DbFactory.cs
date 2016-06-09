@@ -9,11 +9,11 @@ namespace Luckyfive.DataAccess.Infrastructure
 {
     public class DbFactory : Disposable, IDbFactory
     {
-        Entities dbContext;
+        LuckyfiveEntities dbContext;
 
-        public Entities Init()
+        public LuckyfiveEntities Init()
         {
-            return dbContext ?? (dbContext = new Entities());
+            return dbContext ?? (dbContext = new LuckyfiveEntities());
         }
 
         protected override void DisposeCore()

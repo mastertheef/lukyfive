@@ -29,9 +29,9 @@ namespace Luckyfive.Models
         public System.DateTime EndDate { get; set; }
         public int Status { get; set; }
         public int Tokens { get; set; }
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participations> Participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

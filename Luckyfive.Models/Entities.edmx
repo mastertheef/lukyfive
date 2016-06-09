@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Luckyfive.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Advertisments">
           <Key>
             <PropertyRef Name="Id" />
@@ -27,7 +17,24 @@
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Tokens" Type="int" Nullable="false" />
-          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="Participations">
           <Key>
@@ -37,7 +44,7 @@
           <Property Name="AdvId" Type="int" Nullable="false" />
           <Property Name="Tokens" Type="int" Nullable="false" />
           <Property Name="TempUserId" Type="int" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="Photos">
           <Key>
@@ -47,41 +54,11 @@
           <Property Name="AdvId" Type="int" Nullable="false" />
           <Property Name="Url" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="TemporaryParticipants">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
-          <Property Name="Phone" Type="varchar" MaxLength="20" />
-          <Property Name="Active" Type="bit" />
-          <Property Name="Password" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Advertisments_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+        <Association Name="FK_Advertisments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Advertisments" Type="Self.Advertisments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Advertisments">
@@ -101,23 +78,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Participations_TemporaryParticipants">
-          <End Role="TemporaryParticipants" Type="Self.TemporaryParticipants" Multiplicity="0..1" />
+        <Association Name="FK_Participations_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TemporaryParticipants">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Participations">
-              <PropertyRef Name="TempUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Participations_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Participations">
@@ -138,27 +103,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LuckyfiveModelsStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Advertisments" EntityType="Self.Advertisments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Participations" EntityType="Self.Participations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TemporaryParticipants" EntityType="Self.TemporaryParticipants" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Advertisments_Users" Association="Self.FK_Advertisments_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Advertisments_AspNetUsers" Association="Self.FK_Advertisments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Advertisments" EntitySet="Advertisments" />
           </AssociationSet>
           <AssociationSet Name="FK_Participations_Advertisments" Association="Self.FK_Participations_Advertisments">
             <End Role="Advertisments" EntitySet="Advertisments" />
             <End Role="Participations" EntitySet="Participations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Participations_TemporaryParticipants" Association="Self.FK_Participations_TemporaryParticipants">
-            <End Role="TemporaryParticipants" EntitySet="TemporaryParticipants" />
-            <End Role="Participations" EntitySet="Participations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Participations_Users" Association="Self.FK_Participations_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Participations_AspNetUsers" Association="Self.FK_Participations_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Participations" EntitySet="Participations" />
           </AssociationSet>
           <AssociationSet Name="FK_Photos_Advertisments" Association="Self.FK_Photos_Advertisments">
@@ -171,16 +129,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Luckyfive.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Advertisments">
           <Key>
             <PropertyRef Name="Id" />
@@ -193,10 +141,29 @@
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Tokens" Type="Int32" Nullable="false" />
-          <Property Name="OwnerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Advertisments_Users" FromRole="Advertisments" ToRole="Users" />
+          <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Advertisments_AspNetUsers" FromRole="Advertisments" ToRole="AspNetUsers" />
           <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_Advertisments" FromRole="Advertisments" ToRole="Participations" />
           <NavigationProperty Name="Photos" Relationship="Self.FK_Photos_Advertisments" FromRole="Advertisments" ToRole="Photos" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Advertisments" Relationship="Self.FK_Advertisments_AspNetUsers" FromRole="AspNetUsers" ToRole="Advertisments" />
+          <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_AspNetUsers" FromRole="AspNetUsers" ToRole="Participations" />
         </EntityType>
         <EntityType Name="Participations">
           <Key>
@@ -206,10 +173,9 @@
           <Property Name="AdvId" Type="Int32" Nullable="false" />
           <Property Name="Tokens" Type="Int32" Nullable="false" />
           <Property Name="TempUserId" Type="Int32" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Advertisments" Relationship="Self.FK_Participations_Advertisments" FromRole="Participations" ToRole="Advertisments" />
-          <NavigationProperty Name="TemporaryParticipants" Relationship="Self.FK_Participations_TemporaryParticipants" FromRole="Participations" ToRole="TemporaryParticipants" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Participations_Users" FromRole="Participations" ToRole="Users" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Participations_AspNetUsers" FromRole="Participations" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Photos">
           <Key>
@@ -220,44 +186,11 @@
           <Property Name="Url" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Advertisments" Relationship="Self.FK_Photos_Advertisments" FromRole="Photos" ToRole="Advertisments" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TemporaryParticipants">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_TemporaryParticipants" FromRole="TemporaryParticipants" ToRole="Participations" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Advertisments" Relationship="Self.FK_Advertisments_Users" FromRole="Users" ToRole="Advertisments" />
-          <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_Users" FromRole="Users" ToRole="Participations" />
-        </EntityType>
-        <Association Name="FK_Advertisments_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+        <Association Name="FK_Advertisments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Advertisments" Type="Self.Advertisments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Advertisments">
@@ -289,23 +222,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Participations_TemporaryParticipants">
-          <End Role="TemporaryParticipants" Type="Self.TemporaryParticipants" Multiplicity="0..1" />
+        <Association Name="FK_Participations_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TemporaryParticipants">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Participations">
-              <PropertyRef Name="TempUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Participations_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Participations" Type="Self.Participations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Participations">
@@ -314,15 +235,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Advertisments" EntityType="Self.Advertisments" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
           <EntitySet Name="Participations" EntityType="Self.Participations" />
           <EntitySet Name="Photos" EntityType="Self.Photos" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TemporaryParticipants" EntityType="Self.TemporaryParticipants" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Advertisments_Users" Association="Self.FK_Advertisments_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Advertisments_AspNetUsers" Association="Self.FK_Advertisments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Advertisments" EntitySet="Advertisments" />
           </AssociationSet>
           <AssociationSet Name="FK_Participations_Advertisments" Association="Self.FK_Participations_Advertisments">
@@ -333,12 +251,8 @@
             <End Role="Advertisments" EntitySet="Advertisments" />
             <End Role="Photos" EntitySet="Photos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Participations_TemporaryParticipants" Association="Self.FK_Participations_TemporaryParticipants">
-            <End Role="TemporaryParticipants" EntitySet="TemporaryParticipants" />
-            <End Role="Participations" EntitySet="Participations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Participations_Users" Association="Self.FK_Participations_Users">
-            <End Role="Users" EntitySet="Users" />
+          <AssociationSet Name="FK_Participations_AspNetUsers" Association="Self.FK_Participations_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Participations" EntitySet="Participations" />
           </AssociationSet>
         </EntityContainer>
@@ -348,16 +262,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LuckyfiveModelsStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="Luckyfive.Models.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Advertisments">
             <EntityTypeMapping TypeName="Luckyfive.Models.Advertisments">
               <MappingFragment StoreEntitySet="Advertisments">
@@ -370,6 +274,24 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Tokens" ColumnName="Tokens" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Luckyfive.Models.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -390,39 +312,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AdvId" ColumnName="AdvId" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Luckyfive.Models.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TemporaryParticipants">
-            <EntityTypeMapping TypeName="Luckyfive.Models.TemporaryParticipants">
-              <MappingFragment StoreEntitySet="TemporaryParticipants">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="Luckyfive.Models.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

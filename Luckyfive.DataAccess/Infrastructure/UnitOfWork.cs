@@ -10,14 +10,14 @@ namespace Luckyfive.DataAccess.Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IDbFactory dbFactory;
-        private Entities dbContext;
+        private LuckyfiveEntities dbContext;
 
         public UnitOfWork(IDbFactory dbFactory)
         {
             this.dbFactory = dbFactory;
         }
 
-        public Entities DbContext
+        public LuckyfiveEntities DbContext
         {
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }

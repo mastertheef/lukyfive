@@ -12,7 +12,7 @@ namespace Luckyfive.DataAccess.Infrastructure
     public abstract class RepositoryBase<T> where T : class
     {
         #region Properties
-        private Entities dataContext;
+        private LuckyfiveEntities dataContext;
         private readonly IDbSet<T> dbSet;
 
         protected IDbFactory DbFactory
@@ -21,7 +21,7 @@ namespace Luckyfive.DataAccess.Infrastructure
             private set;
         }
 
-        protected Entities DbContext
+        protected LuckyfiveEntities DbContext
         {
             get { return dataContext ?? (dataContext = DbFactory.Init()); }
         }

@@ -9,6 +9,6 @@ namespace Luckyfive.DataAccess.Infrastructure
 {
     public interface IDbFactory : IDisposable
     {
-        Entities Init();
+        LuckyfiveEntities Init();
     }
 }
