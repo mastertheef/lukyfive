@@ -2,13 +2,24 @@
     ViewBag.Title = "Luckyfive";
 }
 
-@section scripts{
-    <script src="~/App/Home/App.js"></script>
-    <script src="~/App/Home/HomeViewmodel.js"></script>
-}
-
-<div ng-non-bindable>
-    <div id="home" ng-controller="homeViewmodel">
-        Тут будут лаки акции..
+<div data-ng-controller="homeController">
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-11">
+                                <input type="text" class="form-control" id="inputEmail3" placeholder="Пошук">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary">Пошук</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    {{ testMessage }}
 </div>

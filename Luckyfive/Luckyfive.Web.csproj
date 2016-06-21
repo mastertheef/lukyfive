@@ -222,6 +222,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\advt\App.js" />
+    <Content Include="App\App.js" />
+    <Content Include="App\lucky\App.js" />
+    <Content Include="App\lucky\Controllers\luckyHomeController.js" />
+    <Content Include="App\routes.js" />
+    <Content Include="App\Services\luckyService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -1078,7 +1084,8 @@
     <Content Include="Views\Account\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\" />
+    <Folder Include="App\lucky\Views\" />
+    <Folder Include="App\profile\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

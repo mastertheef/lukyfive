@@ -9,7 +9,7 @@
 
 
 </head>
-<body>
+<body data-ng-app="main">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -93,11 +93,11 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         window.App = {};
+        App.rootPath = '@Url.Content("~")';
     </script>
     <script src="~/App/App.js"></script>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
-        App.rootPath = '@Url.Content("~")';
         @RenderSection("jsCode", required: false);
     </script>
 </body>
