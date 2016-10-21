@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Luckyfive.Models;
 
-namespace Luckyfive.Controllers
+namespace Luckyfive.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller

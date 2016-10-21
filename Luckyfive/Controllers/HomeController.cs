@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Luckyfive.Controllers
+namespace Luckyfive.Web.Controllers
 {
     public class HomeController : Controller
     {
@@ -24,6 +24,7 @@ namespace Luckyfive.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

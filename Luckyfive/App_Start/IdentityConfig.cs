@@ -11,18 +11,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Luckyfive.Models;
+using Luckyfive.Service;
+using Microsoft.Owin.Security.DataProtection;
 
-namespace Luckyfive
+namespace Luckyfive.Web
 {
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
-        }
-    }
-
     public class SmsService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -56,6 +49,9 @@ namespace Luckyfive
                 RequiredLength = 6
             };
 
+            var provider = new DpapiDataProtectionProvider("Luckyfive");
+
+            manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
             // Configure user lockout defaults
             //manager.UserLockoutEnabledByDefault = true;
             //manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -67,12 +63,11 @@ namespace Luckyfive
             //{
             //    MessageFormat = "Your security code is {0}"
             //});
-            //manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-            //{
-            //    Subject = "Security Code",
-            //    BodyFormat = "Your security code is {0}"
-            //});
-            //manager.EmailService = new EmailService();
+            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Security Code"
+            });
+            manager.EmailService = new EmailService();
             //manager.SmsService = new SmsService();
             //var dataProtectionProvider = options.DataProtectionProvider;
             //if (dataProtectionProvider != null)
@@ -80,6 +75,8 @@ namespace Luckyfive
             //    manager.UserTokenProvider = 
             //        new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             //}
+
+            
             return manager;
         }
     }

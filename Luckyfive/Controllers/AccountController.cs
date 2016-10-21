@@ -9,23 +9,21 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Luckyfive.Models;
+using Luckyfive.Web.Models;
+using Luckyfive.Service;
 
-namespace Luckyfive.Controllers
+namespace Luckyfive.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IMyEmailService _myEmailService;
 
-        public AccountController()
+        public AccountController(IMyEmailService myEmailService)
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            _myEmailService = myEmailService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -52,6 +50,8 @@ namespace Luckyfive.Controllers
             }
         }
 
+        
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -76,6 +76,16 @@ namespace Luckyfive.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    ViewBag.Message = "You must have a confirmed email to log on.";
+                    return View("Info", new InfoViewModel { UserEmail = user.Email });
+                }
             }
 
             // This doesn't count login failures towards account lockout
@@ -160,21 +170,27 @@ namespace Luckyfive.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    return RedirectToAction("Index", "Home");
+                    await this.sendConfrimationMail(user);
+
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                        + "before you can log in.";
+
+                    return View("Info", new InfoViewModel { UserEmail = user.Email });
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private async Task sendConfrimationMail(ApplicationUser user)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            await this._myEmailService.SendConfirmationEmail(callbackUrl, user.Email);
         }
 
         //
@@ -406,6 +422,16 @@ namespace Luckyfive.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> SendConfirmAgain(string userEmail)
+        {
+            var user = await UserManager.FindByEmailAsync(userEmail);
+            await this.sendConfrimationMail(user);
+            ViewBag.Message = "Email sent again";
+            return View("Info", new InfoViewModel { UserEmail = user.Email });
         }
 
         protected override void Dispose(bool disposing)

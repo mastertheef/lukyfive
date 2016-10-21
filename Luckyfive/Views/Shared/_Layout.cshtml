@@ -35,7 +35,16 @@
                                 <li>@Html.ActionLink("Мої об'яви", "Advertisments", "Profile")</li>
                                 <li>@Html.ActionLink("Налаштування", "Options", "Profile")</li>
                                 <li class="divider"></li>
-                                <li>@Html.ActionLink("Вийти", "Logoff", "Account")</li>
+                                <li>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post,
+                                    new { id = "logoutForm" }))
+                                    {
+
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a>
+
+                                    }
+                                </li>
                             </ul>
                         </li>
                     }
@@ -89,13 +98,10 @@
         </footer>
     </div>
     @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/site")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script type="text/javascript">
-        window.App = {};
-        App.rootPath = '@Url.Content("~")';
-    </script>
-    <script src="~/App/App.js"></script>
+        
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         @RenderSection("jsCode", required: false);

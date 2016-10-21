@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Luckyfive
+namespace Luckyfive.Web
 {
     public class BundleConfig
     {
@@ -26,6 +26,10 @@ namespace Luckyfive
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                "~/Scripts/SiteScripts/*.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

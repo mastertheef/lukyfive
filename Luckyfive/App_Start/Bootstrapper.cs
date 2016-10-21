@@ -7,14 +7,17 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Luckyfive.Service;
+using Luckyfive.Web.Controllers;
 
-namespace Luckyfive.Web.App_Start
+namespace Luckyfive.Web
 {
-    public class Bootstrapper
+    public static class Bootstrapper
     {
         public static void Run()
         {
             SetAutofacContainer();
+            //AutoMapperConfiguration.Configure();
         }
 
         private static void SetAutofacContainer()
@@ -28,10 +31,13 @@ namespace Luckyfive.Web.App_Start
             //builder.RegisterAssemblyTypes(typeof(GadgetRepository).Assembly)
             //    .Where(t => t.Name.EndsWith("Repository"))
             //    .AsImplementedInterfaces().InstancePerRequest();
-            //// Services
-            //builder.RegisterAssemblyTypes(typeof(GadgetService).Assembly)
-            //   .Where(t => t.Name.EndsWith("Service"))
-            //   .AsImplementedInterfaces().InstancePerRequest();
+            // Services
+            builder.RegisterAssemblyTypes(typeof(MyEmailService).Assembly)
+               .Where(t => t.Name.EndsWith("Service"))
+               .AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterAssemblyTypes(typeof (AccountController).Assembly)
+                .Where(t => t.Name.EndsWith("Controller"))
+                .AsSelf().InstancePerLifetimeScope();
 
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
