@@ -434,6 +434,8 @@ namespace Luckyfive.Web.Controllers
             return View("Info", new InfoViewModel { UserEmail = user.Email });
         }
 
+       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
