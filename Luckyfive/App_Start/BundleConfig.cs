@@ -23,9 +23,8 @@ namespace Luckyfive.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                "~/Scripts/angular.js",
-                "~/Scripts/angular-route.js"));
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                "~/Scripts/knockout-3.4.0.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                 "~/Scripts/SiteScripts/*.js"
