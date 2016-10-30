@@ -6,6 +6,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/knockout")
+	@Scripts.Render("~/bundles/site")
+	@Scripts.Render("~/bundles/bootstrap")
 
 
 </head>
@@ -97,12 +101,8 @@
             </div>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/site")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-        
-    @RenderSection("scripts", required: false)
+    
+	@RenderSection("scripts", required: false)
     <script type="text/javascript">
         @RenderSection("jsCode", required: false);
     </script>
