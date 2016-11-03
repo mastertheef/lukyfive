@@ -2,45 +2,88 @@
     ViewBag.Title = "Options";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <i class="fa fa-circle-o-notch fa-spin" style="font-size: 60px;color:red" data-bind="visible: !loaded"></i>
 <div data-bind="visible: loaded">
     <h2>Мої налаштування</h2>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#location" data-toggle="tab" aria-expanded="True">Location settings</a></li>
+        <li class="active"><a href="#location" data-toggle="tab" aria-expanded="True">Контактні дані</a></li>
         <li class=""><a href="#changeEmail" data-toggle="tab">Change Email</a></li>
         <li class=""><a href="#changePassword" data-toggle="tab">Change Password</a></li>
         <li class=""><a href="#removeAccount" data-toggle="tab">Remove Account</a></li>
     </ul>
     <div id="tabContent" class="tab-content">
-        <div class="tab-pane fade active in" id="location">
-            <fieldset>
-                <legend>Location info</legend>
-                <div class="form-group">
-                    <label for="countries" class="col-lg-2 control-label">Countries</label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="countries"
-                                data-bind="options: countries, 
-                                           optionsText: 'title', 
-                                           optionsValue: 'id', 
-                                           optionsCaption: 'Select...', 
-                                           value: selectedCountry, 
-                                           event: {change: onCountryChange}"></select>
-                    </div>
-                </div>
-                <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px;color:red" data-bind="visible: showRegionsSpinner"></i>
-                <div class="form-group" data-bind="visible: regionsLoaded">
-                    <label for="regions" class="col-lg-2 control-label">Regions</label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="regions" data-bind="options: regions, optionsText: 'title', optionsValue: 'id', optionsCaption: 'Select...'"></select>
-                    </div>
-                </div>
 
-            </fieldset>
+        <div class="tab-pane fade active in" id="location">
+            <div class="form-horizontal" style="padding-top: 20px">
+                <fieldset>
+
+                    <div class="form-group">
+                        <label for="countries" class="col-lg-2 control-label">Країна</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="countries"
+                                    data-bind="options: countries,
+                                           optionsText: 'title',
+                                           optionsValue: 'id',
+                                           optionsCaption: 'Select...',
+                                           value: selectedCountry,
+                                           event: {change: onCountryChange}"></select>
+
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showRegionsSpinner"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regions" class="col-lg-2 control-label">Область</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="regions" data-bind="options: regions,
+                                                                             enable: regionsLoaded,
+                                                                             optionsText: 'title',
+                                                                             optionsValue: 'id',
+                                                                             optionsCaption: 'Select...',
+                                                                             value: selectedRegion,
+                                                                             event: {change: onRegionChange}"></select>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showCitiesSpinner"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cities" class="col-lg-2 control-label">Місто</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" id="cities" data-bind="options: cities,
+                                                                            enable: citiesLoaded,
+                                                                            optionsText: 'title',
+                                                                            optionsValue: 'id',
+                                                                            optionsCaption: 'Select...',
+                                                                            value: selectedCity"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 control-label">Контактна особа</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="name" data-bind="value: name" placeholder="Ім'я" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-lg-2 control-label">Контактний телефон</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control" id="phone" data-bind="value: phone" placeholder="Телефон" />
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
         </div>
         <div class="tab-pane fade" id="changeEmail">Email changing functionality</div>
         <div class="tab-pane fade" id="changePassword">Password changing functionality</div>
         <div class="tab-pane fade" id="removeAccount">Remove account big button with confirmation</div>
     </div>
+
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

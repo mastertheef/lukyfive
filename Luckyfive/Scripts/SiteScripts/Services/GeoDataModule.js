@@ -24,7 +24,7 @@
         };
 
         var getCities = function(countryId, regionId) {
-            var url = 'http://api.vk.com/method/database.getCities?v=5.5&country_id=' + countryId + 'region_id=' + regionId + '&offset=0&need_all=1&count=1000';
+            var url = 'http://api.vk.com/method/database.getCities?v=5.5&country_id=' + countryId + '&region_id=' + regionId + '&offset=0&need_all=1&count=1000';
             return $.ajax({
                 method: 'GET',
                 dataType: 'jsonp',
