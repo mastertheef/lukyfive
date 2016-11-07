@@ -32,7 +32,10 @@ namespace Luckyfive.Web
             //    .Where(t => t.Name.EndsWith("Repository"))
             //    .AsImplementedInterfaces().InstancePerRequest();
             // Services
-            builder.RegisterAssemblyTypes(typeof(MyEmailService).Assembly)
+            builder.RegisterAssemblyTypes(Assembly.Load("Luckyfive.DataAccess"))
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterAssemblyTypes(Assembly.Load("Luckyfive.Service"))
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
             builder.RegisterAssemblyTypes(typeof (AccountController).Assembly)

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Luckyfive.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Luckyfive.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Advertisments">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,6 +54,17 @@
           <Property Name="AdvId" Type="int" Nullable="false" />
           <Property Name="Url" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProfileSettings">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="256" />
+        </EntityType>
         <Association Name="FK_Advertisments_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Advertisments" Type="Self.Advertisments" Multiplicity="*" />
@@ -90,6 +101,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PfileSettings_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ProfileSettings" Type="Self.ProfileSettings" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileSettings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Photos_Advertisments">
           <End Role="Advertisments" Type="Self.Advertisments" Multiplicity="1" />
           <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
@@ -107,6 +130,7 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Participations" EntityType="Self.Participations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfileSettings" EntityType="Self.ProfileSettings" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Advertisments_AspNetUsers" Association="Self.FK_Advertisments_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Advertisments" EntitySet="Advertisments" />
@@ -119,13 +143,16 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Participations" EntitySet="Participations" />
           </AssociationSet>
+          <AssociationSet Name="FK_PfileSettings_AspNetUsers" Association="Self.FK_PfileSettings_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ProfileSettings" EntitySet="ProfileSettings" />
+          </AssociationSet>
           <AssociationSet Name="FK_Photos_Advertisments" Association="Self.FK_Photos_Advertisments">
             <End Role="Advertisments" EntitySet="Advertisments" />
             <End Role="Photos" EntitySet="Photos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Luckyfive.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -164,6 +191,7 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Advertisments" Relationship="Self.FK_Advertisments_AspNetUsers" FromRole="AspNetUsers" ToRole="Advertisments" />
           <NavigationProperty Name="Participations" Relationship="Self.FK_Participations_AspNetUsers" FromRole="AspNetUsers" ToRole="Participations" />
+          <NavigationProperty Name="ProfileSettings" Relationship="Luckyfive.Models.FK_PfileSettings_AspNetUsers" FromRole="AspNetUsers" ToRole="ProfileSettings" />
         </EntityType>
         <EntityType Name="Participations">
           <Key>
@@ -255,7 +283,36 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Participations" EntitySet="Participations" />
           </AssociationSet>
+          <EntitySet Name="ProfileSettings" EntityType="Luckyfive.Models.ProfileSettings" />
+          <AssociationSet Name="FK_PfileSettings_AspNetUsers" Association="Luckyfive.Models.FK_PfileSettings_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ProfileSettings" EntitySet="ProfileSettings" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ProfileSettings">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Luckyfive.Models.FK_PfileSettings_AspNetUsers" FromRole="ProfileSettings" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_PfileSettings_AspNetUsers">
+          <End Type="Luckyfive.Models.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Luckyfive.Models.ProfileSettings" Role="ProfileSettings" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileSettings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -312,6 +369,18 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AdvId" ColumnName="AdvId" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileSettings">
+            <EntityTypeMapping TypeName="Luckyfive.Models.ProfileSettings">
+              <MappingFragment StoreEntitySet="ProfileSettings">
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

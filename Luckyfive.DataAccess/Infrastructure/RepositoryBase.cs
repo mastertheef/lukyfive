@@ -57,7 +57,7 @@ namespace Luckyfive.DataAccess.Infrastructure
                 dbSet.Remove(obj);
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(string id)
         {
             return dbSet.Find(id);
         }

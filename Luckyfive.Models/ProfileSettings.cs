@@ -15,22 +15,22 @@ namespace Luckyfive.Models
 using System;
     using System.Collections.Generic;
     
-public partial class Participations
+public partial class ProfileSettings
 {
-
-    public int Id { get; set; }
-
-    public int AdvId { get; set; }
-
-    public int Tokens { get; set; }
-
-    public Nullable<int> TempUserId { get; set; }
 
     public string UserId { get; set; }
 
+    public Nullable<int> CountryId { get; set; }
+
+    public Nullable<int> RegionId { get; set; }
+
+    public Nullable<int> CityId { get; set; }
+
+    public string Phone { get; set; }
+
+    public string ContactName { get; set; }
 
 
-    public virtual Advertisments Advertisments { get; set; }
 
     public virtual AspNetUsers AspNetUsers { get; set; }
 

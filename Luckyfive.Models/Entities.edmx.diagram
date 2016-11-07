@@ -13,6 +13,8 @@
         <AssociationConnector Association="Luckyfive.Models.FK_Participations_Advertisments" ManuallyRouted="false" />
         <AssociationConnector Association="Luckyfive.Models.FK_Photos_Advertisments" ManuallyRouted="false" />
         <AssociationConnector Association="Luckyfive.Models.FK_Participations_AspNetUsers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Luckyfive.Models.ProfileSettings" Width="1.5" PointX="3" PointY="6.375" />
+        <AssociationConnector Association="Luckyfive.Models.FK_PfileSettings_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

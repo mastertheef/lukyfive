@@ -37,7 +37,9 @@
         viewModel.onCountryChange = function () {
             viewModel.showRegionsSpinner(true);
             viewModel.regionsLoaded(false);
-            Window.App.GeoDataModule.getRegions(viewModel.selectedCountry())
+            viewModel.selectedRegion(undefined);
+            viewModel.selectedCity(undefined);
+            return Window.App.GeoDataModule.getRegions(viewModel.selectedCountry())
                 .then(function (data) {
                     if (data && data.response && data.response.items) {
                         viewModel.regions(data.response.items);
@@ -51,7 +53,8 @@
         viewModel.onRegionChange = function () {
             viewModel.showCitiesSpinner(true);
             viewModel.citiesLoaded(false);
-            Window.App.GeoDataModule.getCities(viewModel.selectedCountry(), viewModel.selectedRegion())
+            viewModel.selectedCity(undefined);
+            return Window.App.GeoDataModule.getCities(viewModel.selectedCountry(), viewModel.selectedRegion())
                 .then(function (data) {
                     if (data && data.response && data.response.items) {
                         viewModel.cities(data.response.items);
@@ -64,15 +67,35 @@
         var loadData = function () {
             $('#phone').mask('+999 99 999 9999');
             ko.applyBindings(viewModel);
+
+
             Window.App.GeoDataModule.getCountries()
-                .then(function (data) {
-                    if (data && data.response && data.response.items) {
-                        viewModel.countries(data.response.items);
+            .then(function (data) {
+                if (data && data.response && data.response.items) {
+                    viewModel.countries(data.response.items);
+                }
 
-                    }
+                viewModel.loaded(true);
+            })
+            .then(function () {
+                Window.App.ProfileModuleService.GetProfileSettings()
+                    .then(function (result) {
+                        if (result && result.Data) {
+                            viewModel.name(result.Data.ContactName);
+                            viewModel.phone(result.Data.Phone);
+                            viewModel.selectedCountry(result.Data.CountryId);
+                            viewModel.onCountryChange()
+                                .then(function () {
+                                    viewModel.selectedRegion(result.Data.RegionId);
+                                })
+                                .then(viewModel.onRegionChange)
+                            .then(function () {
+                                viewModel.selectedCity(result.Data.CityId);
+                            });
 
-                    viewModel.loaded(true);
-                });
+                        }
+                    });
+            });
         };
 
         return {
