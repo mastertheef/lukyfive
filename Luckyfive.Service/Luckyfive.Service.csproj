@@ -93,6 +93,10 @@
       <Project>{56872169-1573-4634-98E9-FF78F554EFDE}</Project>
       <Name>Luckyfive.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Luckyfive.DTO\Luckyfive.DTO.csproj">
+      <Project>{6F9C6980-9B07-4CA5-A00D-7B46C449BB2C}</Project>
+      <Name>Luckyfive.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Luckyfive.Models\Luckyfive.Models.csproj">
       <Project>{EC179505-CF20-49FE-93BE-F3A166FFF958}</Project>
       <Name>Luckyfive.Models</Name>

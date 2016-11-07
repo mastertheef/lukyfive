@@ -325,13 +325,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Luckyfive.DataAccess\Luckyfive.DataAccess.csproj">
-      <Project>{56872169-1573-4634-98e9-ff78f554efde}</Project>
-      <Name>Luckyfive.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Luckyfive.Models\Luckyfive.Models.csproj">
-      <Project>{EC179505-CF20-49FE-93BE-F3A166FFF958}</Project>
-      <Name>Luckyfive.Models</Name>
+    <ProjectReference Include="..\Luckyfive.DTO\Luckyfive.DTO.csproj">
+      <Project>{6f9c6980-9b07-4ca5-a00d-7b46c449bb2c}</Project>
+      <Name>Luckyfive.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Luckyfive.Service\Luckyfive.Service.csproj">
       <Project>{84004999-9ab0-4cd0-aa0e-28ba84f18975}</Project>
