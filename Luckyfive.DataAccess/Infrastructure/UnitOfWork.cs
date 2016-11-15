@@ -26,5 +26,10 @@ namespace Luckyfive.DataAccess.Infrastructure
         {
             DbContext.Commit();
         }
+
+        public async Task CommitAsync()
+        {
+            await Task.Run(() => Commit());
+        }
     }
 }

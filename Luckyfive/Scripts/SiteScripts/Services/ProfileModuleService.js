@@ -9,8 +9,18 @@
             });
         };
 
+        var saveProfileSettings = function(data) {
+            return $.ajax({
+                method: 'POST',
+                url: 'SaveProfileSettings',
+                data: data,
+                dataType: 'json'
+            });
+        };
+
         return {
-            GetProfileSettings: getProfileSettings
+            GetProfileSettings: getProfileSettings,
+            SaveProfileSettings: saveProfileSettings
         };
     })();
 })(Window);

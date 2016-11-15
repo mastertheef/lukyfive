@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Luckyfive.DTO;
 using Luckyfive.Service;
 using Luckyfive.Service.Abstraction;
 using Microsoft.AspNet.Identity;
@@ -35,6 +36,13 @@ namespace Luckyfive.Web.Controllers
             }
 
             return null;
+        }
+
+        [HttpPost]
+        public async Task SaveProfileSettings(ProfileSettingsDTO settings)
+        {
+            settings.UserId = this.User.Identity.GetUserId();
+            await this.profileService.SaveProfileSettings(settings);
         }
     }
 }

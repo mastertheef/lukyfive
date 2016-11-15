@@ -9,5 +9,6 @@ namespace Luckyfive.DataAccess.Infrastructure
     public interface IUnitOfWork
     {
         void Commit();
+        Task CommitAsync();
     }
 }

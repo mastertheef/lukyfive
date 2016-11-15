@@ -11,6 +11,6 @@ namespace Luckyfive.Service.Abstraction
     public interface IProfileService
     {
         Task<ProfileSettingsDTO> GetUserProfileSettings(string id);
-        Task SaveProfileSettings(ProfileSettingsDTO setings);
+        Task SaveProfileSettings(ProfileSettingsDTO settings);
     }
 }

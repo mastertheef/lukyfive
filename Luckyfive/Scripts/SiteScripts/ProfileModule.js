@@ -64,10 +64,22 @@
                 });
         };
 
+        viewModel.onSaveButtonClick = function() {
+            var data = {
+                UserId: '',
+                CountryId: viewModel.selectedCountry(),
+                RegionId: viewModel.selectedRegion(),
+                CityId: viewModel.selectedCity(),
+                ContactName: viewModel.name(),
+                Phone: viewModel.phone()
+            };
+
+            Window.App.ProfileModuleService.SaveProfileSettings(data);
+        };
+
         var loadData = function () {
             $('#phone').mask('+999 99 999 9999');
             ko.applyBindings(viewModel);
-
 
             Window.App.GeoDataModule.getCountries()
             .then(function (data) {

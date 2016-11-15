@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -45,6 +46,11 @@ namespace Luckyfive.DataAccess.Infrastructure
             dataContext.Entry(entity).State = EntityState.Modified;
         }
 
+
+        public virtual void AddOrUpdate(T entity)
+        {
+            dbSet.AddOrUpdate(entity);
+        }
         public virtual void Delete(T entity)
         {
             dbSet.Remove(entity);
