@@ -76,8 +76,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
+                        <div class="col-lg-1 col-lg-offset-2">
                             <button class="btn btn-primary" data-bind="event:{click: onSaveButtonClick}">Save</button>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showSaveSpinner"></i>
                         </div>
                     </div>
                 </fieldset>

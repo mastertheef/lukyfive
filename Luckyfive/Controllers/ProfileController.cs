@@ -39,10 +39,14 @@ namespace Luckyfive.Web.Controllers
         }
 
         [HttpPost]
-        public async Task SaveProfileSettings(ProfileSettingsDTO settings)
+        public async Task<JsonResult> SaveProfileSettings(ProfileSettingsDTO settings)
         {
             settings.UserId = this.User.Identity.GetUserId();
             await this.profileService.SaveProfileSettings(settings);
+            return new JsonResult()
+            {
+                Data = new { success = true }
+            };
         }
     }
 }

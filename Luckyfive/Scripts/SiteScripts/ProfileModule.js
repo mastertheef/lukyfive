@@ -18,6 +18,7 @@
             selectedCity: ko.observable(),
             showRegionsSpinner: ko.observable(false),
             showCitiesSpinner: ko.observable(false),
+            showSaveSpinner: ko.observable(true),
             name: ko.observable(''),
             phone: ko.observable('')
         };
@@ -73,8 +74,12 @@
                 ContactName: viewModel.name(),
                 Phone: viewModel.phone()
             };
-
-            Window.App.ProfileModuleService.SaveProfileSettings(data);
+            viewModel.showSaveSpinner(true);
+            Window.App.ProfileModuleService.SaveProfileSettings(data)
+                .then(function (result) {
+                    console.log(result);
+                    viewModel.showSaveSpinner(false);
+                });
         };
 
         var loadData = function () {
@@ -92,17 +97,17 @@
             .then(function () {
                 Window.App.ProfileModuleService.GetProfileSettings()
                     .then(function (result) {
-                        if (result && result.Data) {
-                            viewModel.name(result.Data.ContactName);
-                            viewModel.phone(result.Data.Phone);
-                            viewModel.selectedCountry(result.Data.CountryId);
+                        if (result) {
+                            viewModel.name(result.ContactName);
+                            viewModel.phone(result.Phone);
+                            viewModel.selectedCountry(result.CountryId);
                             viewModel.onCountryChange()
                                 .then(function () {
-                                    viewModel.selectedRegion(result.Data.RegionId);
+                                    viewModel.selectedRegion(result.RegionId);
                                 })
                                 .then(viewModel.onRegionChange)
                             .then(function () {
-                                viewModel.selectedCity(result.Data.CityId);
+                                viewModel.selectedCity(result.CityId);
                             });
 
                         }
