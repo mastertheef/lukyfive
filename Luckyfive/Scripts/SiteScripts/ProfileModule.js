@@ -18,10 +18,12 @@
             selectedCity: ko.observable(),
             showRegionsSpinner: ko.observable(false),
             showCitiesSpinner: ko.observable(false),
-            showSaveSpinner: ko.observable(true),
+            showSaveSpinner: ko.observable(false),
             name: ko.observable(''),
             phone: ko.observable('')
         };
+
+        Window.App.ProfileValidation.Extend(viewModel);
 
         viewModel.countrySelected = ko.computed(function () {
             return this.selectedCountry() !== undefined &&
@@ -65,21 +67,26 @@
                 });
         };
 
-        viewModel.onSaveButtonClick = function() {
-            var data = {
-                UserId: '',
-                CountryId: viewModel.selectedCountry(),
-                RegionId: viewModel.selectedRegion(),
-                CityId: viewModel.selectedCity(),
-                ContactName: viewModel.name(),
-                Phone: viewModel.phone()
-            };
-            viewModel.showSaveSpinner(true);
-            Window.App.ProfileModuleService.SaveProfileSettings(data)
-                .then(function (result) {
-                    console.log(result);
-                    viewModel.showSaveSpinner(false);
-                });
+        viewModel.onSaveButtonClick = function () {
+
+            if (viewModel.isValid()) {
+                var data = {
+                    UserId: '',
+                    CountryId: viewModel.selectedCountry(),
+                    RegionId: viewModel.selectedRegion(),
+                    CityId: viewModel.selectedCity(),
+                    ContactName: viewModel.name(),
+                    Phone: viewModel.phone()
+                };
+                viewModel.showSaveSpinner(true);
+                Window.App.ProfileModuleService.SaveProfileSettings(data)
+                    .then(function(result) {
+                        console.log(result);
+                        viewModel.showSaveSpinner(false);
+                    });
+            } else {
+                Console.log('Its working');
+            }
         };
 
         var loadData = function () {

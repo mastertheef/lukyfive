@@ -25,7 +25,8 @@ namespace Luckyfive.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-3.4.0.js"));
+                "~/Scripts/knockout-3.4.0.js",
+                "~/Scripts/knockout.validation.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                 "~/Scripts/SiteScripts/Services/*.js",
