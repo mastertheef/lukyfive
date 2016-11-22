@@ -1,14 +1,18 @@
 ﻿"use strict";
-(function(Window) {
+(function(Window, ko) {
     Window.App = Window.App || {};
+    ko.validation.init({
+        insertMessages: false
+    });
+
     Window.App.ProfileValidation = (function () {
         var makeRequired = function (field, message) {
             field.extend({
                 required: {
                     params: true,
-                    message: message
                 }
             });
+            field.validationMessage = ko.observable(message);
             return field;
         };
 
@@ -32,4 +36,4 @@
             Extend: extend
         };
     })();
-})(Window)
+})(Window, ko)

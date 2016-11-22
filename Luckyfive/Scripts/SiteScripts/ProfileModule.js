@@ -46,9 +46,9 @@
                 .then(function (data) {
                     if (data && data.response && data.response.items) {
                         viewModel.regions(data.response.items);
-                        viewModel.showRegionsSpinner(false);
                         viewModel.regionsLoaded(true);
                     }
+                    viewModel.showRegionsSpinner(false);
                 });
 
         };
@@ -61,9 +61,9 @@
                 .then(function (data) {
                     if (data && data.response && data.response.items) {
                         viewModel.cities(data.response.items);
-                        viewModel.showCitiesSpinner(false);
                         viewModel.citiesLoaded(true);
                     }
+                    viewModel.showCitiesSpinner(false);
                 });
         };
 
@@ -81,12 +81,9 @@
                 viewModel.showSaveSpinner(true);
                 Window.App.ProfileModuleService.SaveProfileSettings(data)
                     .then(function(result) {
-                        console.log(result);
                         viewModel.showSaveSpinner(false);
                     });
-            } else {
-                Console.log('Its working');
-            }
+            } 
         };
 
         var loadData = function () {
@@ -98,8 +95,6 @@
                 if (data && data.response && data.response.items) {
                     viewModel.countries(data.response.items);
                 }
-
-                viewModel.loaded(true);
             })
             .then(function () {
                 Window.App.ProfileModuleService.GetProfileSettings()
@@ -115,8 +110,8 @@
                                 .then(viewModel.onRegionChange)
                             .then(function () {
                                 viewModel.selectedCity(result.CityId);
+                                viewModel.loaded(true);
                             });
-
                         }
                     });
             });

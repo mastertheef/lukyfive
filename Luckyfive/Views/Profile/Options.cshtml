@@ -22,9 +22,9 @@
             <div class="form-horizontal" style="padding-top: 20px">
                 <fieldset>
 
-                    <div class="form-group">
+                    <div class="form-group" data-bind="css: {'has-error': !selectedCountry.isValid()}"> 
                         <label for="countries" class="col-lg-2 control-label">Країна</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <select class="form-control" id="countries"
                                     data-bind="options: countries,
                                            optionsText: 'title',
@@ -34,14 +34,17 @@
                                            event: {change: onCountryChange}"></select>
 
                         </div>
-                        <div class="col-lg-1">
-                            <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showRegionsSpinner"></i>
+                        <div class="col-lg-1" data-bind="if: showRegionsSpinner">
+                            <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" ></i>
                         </div>
+						<div class="col-lg-3" data-bind="if: !selectedCountry.isValid()">
+							<span class="label label-danger" data-bind="text: selectedCountry.validationMessage()"></span>
+						</div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-bind="css: {'has-error': !selectedRegion.isValid()}">
                         <label for="regions" class="col-lg-2 control-label">Область</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <select class="form-control" id="regions" data-bind="options: regions,
                                                                              enable: regionsLoaded,
                                                                              optionsText: 'title',
@@ -53,11 +56,14 @@
                         <div class="col-lg-1">
                             <i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showCitiesSpinner"></i>
                         </div>
+						<div class="col-lg-3" data-bind="if: !selectedRegion.isValid()">
+							<span class="label label-danger" data-bind="text: selectedRegion.validationMessage()"></span>
+						</div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-bind="css: {'has-error': !selectedCity.isValid()}">
                         <label for="cities" class="col-lg-2 control-label">Місто</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <select class="form-control" id="cities" data-bind="options: cities,
                                                                             enable: citiesLoaded,
                                                                             optionsText: 'title',
@@ -66,18 +72,24 @@
                                                                             value: selectedCity"></select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-bind="css: {'has-error': !name.isValid()}">
                         <label for="name" class="col-lg-2 control-label">Контактна особа</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <input type="text" class="form-control" id="name" data-bind="value: name" placeholder="Ім'я" />
                         </div>
+						<div class="col-lg-3" data-bind="if: !name.isValid()">
+							<span class="label label-danger" data-bind="text: name.validationMessage()"></span>
+						</div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" data-bind="css: {'has-error': !phone.isValid()}">
                         <label for="phone" class="col-lg-2 control-label">Контактний телефон</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <input type="text" class="form-control" id="phone" data-bind="value: phone" placeholder="Телефон" />
                         </div>
+						<div class="col-lg-3" data-bind="if: !phone.isValid()">
+							<span class="label label-danger" data-bind="text: phone.validationMessage()"></span>
+						</div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-1 col-lg-offset-2">
