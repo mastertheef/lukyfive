@@ -20,7 +20,9 @@
             showCitiesSpinner: ko.observable(false),
             showSaveSpinner: ko.observable(false),
             name: ko.observable(''),
-            phone: ko.observable('')
+            phone: ko.observable(''),
+
+            newEmail: ko.observable('')
         };
 
         Window.App.ProfileValidation.Extend(viewModel);
@@ -80,10 +82,23 @@
                 };
                 viewModel.showSaveSpinner(true);
                 Window.App.ProfileModuleService.SaveProfileSettings(data)
-                    .then(function(result) {
+                    .then(function (result) {
                         viewModel.showSaveSpinner(false);
                     });
-            } 
+            }
+        };
+
+        viewModel.newEmail.isValidating.subscribe(function (isValidating) {
+            if (!isValidating && viewModel.newEmail.isValid()) {
+                Window.App.ProfileModuleService.ChangeEmail(viewModel.newEmail())
+                    .then(function (result) {
+                        console.log(result);
+                    });
+            }
+        });
+
+        viewModel.onChangeEmailClick = function () {
+            viewModel.newEmail.isValidating(true);
         };
 
         var loadData = function () {
@@ -112,6 +127,9 @@
                                 viewModel.selectedCity(result.CityId);
                                 viewModel.loaded(true);
                             });
+                        }
+                        else {
+                            viewModel.loaded(true);
                         }
                     });
             });

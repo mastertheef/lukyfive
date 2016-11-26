@@ -18,9 +18,19 @@
             });
         };
 
+        var changeEmail = function (newEmail) {
+            return $.ajax({
+                method: 'POST',
+                url: 'ChangeEmail',
+                data: { newEmail: newEmail },
+                dataType: 'json'
+            });
+        };
+
         return {
             GetProfileSettings: getProfileSettings,
-            SaveProfileSettings: saveProfileSettings
+            SaveProfileSettings: saveProfileSettings,
+            ChangeEmail: changeEmail,
         };
     })();
 })(Window);

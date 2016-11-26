@@ -22,7 +22,7 @@
 			<div class="form-horizontal" style="padding-top: 20px">
 				<fieldset>
 
-					<div class="form-group" data-bind="css: {'has-error': !selectedCountry.isValid()}">
+					<div class="form-group" data-bind="css: {'has-error': selectedCountry.isModified() && !selectedCountry.isValid()}">
 						<label for="countries" class="col-lg-2 control-label">Країна</label>
 						<div class="col-lg-3">
 							<select class="form-control" id="countries"
@@ -37,12 +37,12 @@
 						<div class="col-lg-1" data-bind="if: showRegionsSpinner">
 							<i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red"></i>
 						</div>
-						<div class="col-lg-3" data-bind="if: !selectedCountry.isValid()">
+						<div class="col-lg-3" data-bind="if: selectedCountry.isModified() && !selectedCountry.isValid()">
 							<span class="label label-danger" data-bind="text: selectedCountry.validationMessage()"></span>
 						</div>
 					</div>
 
-					<div class="form-group" data-bind="css: {'has-error': !selectedRegion.isValid()}">
+					<div class="form-group" data-bind="css: {'has-error': selectedRegion.isModified() && !selectedRegion.isValid()}">
 						<label for="regions" class="col-lg-2 control-label">Область</label>
 						<div class="col-lg-3">
 							<select class="form-control" id="regions" data-bind="options: regions,
@@ -56,12 +56,12 @@
 						<div class="col-lg-1">
 							<i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showCitiesSpinner"></i>
 						</div>
-						<div class="col-lg-3" data-bind="if: !selectedRegion.isValid()">
+						<div class="col-lg-3" data-bind="if: selectedRegion.isModified() && !selectedRegion.isValid()">
 							<span class="label label-danger" data-bind="text: selectedRegion.validationMessage()"></span>
 						</div>
 					</div>
 
-					<div class="form-group" data-bind="css: {'has-error': !selectedCity.isValid()}">
+					<div class="form-group" data-bind="css: {'has-error': selectedCity.isModified() && !selectedCity.isValid()}">
 						<label for="cities" class="col-lg-2 control-label">Місто</label>
 						<div class="col-lg-3">
 							<select class="form-control" id="cities" data-bind="options: cities,
@@ -71,23 +71,26 @@
                                                                             optionsCaption: 'Select...',
                                                                             value: selectedCity"></select>
 						</div>
+						<div class="col-lg-3" data-bind="if: selectedCity.isModified() && !selectedCity.isValid()">
+							<span class="label label-danger" data-bind="text: selectedCity.validationMessage()"></span>
+						</div>
 					</div>
-					<div class="form-group" data-bind="css: {'has-error': !name.isValid()}">
+					<div class="form-group" data-bind="css: {'has-error': name.isModified() && !name.isValid()}">
 						<label for="name" class="col-lg-2 control-label">Контактна особа</label>
 						<div class="col-lg-3">
 							<input type="text" class="form-control" id="name" data-bind="value: name" placeholder="Ім'я" />
 						</div>
-						<div class="col-lg-3" data-bind="if: !name.isValid()">
+						<div class="col-lg-3" data-bind="if: name.isModified() && !name.isValid()">
 							<span class="label label-danger" data-bind="text: name.validationMessage()"></span>
 						</div>
 					</div>
 
-					<div class="form-group" data-bind="css: {'has-error': !phone.isValid()}">
+					<div class="form-group" data-bind="css: {'has-error': phone.isModified() && !phone.isValid()}">
 						<label for="phone" class="col-lg-2 control-label">Контактний телефон</label>
 						<div class="col-lg-3">
 							<input type="text" class="form-control" id="phone" data-bind="value: phone" placeholder="Телефон" />
 						</div>
-						<div class="col-lg-3" data-bind="if: !phone.isValid()">
+						<div class="col-lg-3" data-bind="if: phone.isModified() && !phone.isValid()">
 							<span class="label label-danger" data-bind="text: phone.validationMessage()"></span>
 						</div>
 					</div>
@@ -108,22 +111,20 @@
 					<div class="form-group">
 						<label for="newEmail" class="col-lg-2 control-label">New Email</label>
 						<div class="col-lg-3">
-							<input type="text" class="form-control" id="newEmail" placeholder="New Email" />
-						</div>
-						<div class="col-lg-1">
-							<button class="btn btn-primary">Send Confirmation Code</button>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="confirmationCode" class="col-lg-2 control-label">Confirmation Code</label>
-						<div class="col-lg-3">
-							<input type="text" class="form-control" id="newEmail" placeholder="Телефон" />
+							<input type="text" class="form-control" id="newEmail" placeholder="New Email" data-bind="value: newEmail" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-lg-1 col-lg-offset-2">
-							<button class="btn btn-primary">Change Email</button>
+							<button class="btn btn-primary" data-bind="click: onChangeEmailClick">Change Email</button>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="alert alert-dismissible alert-success">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Well done!</strong> The confirmation email was sent. Please Confirm your new email.
 						</div>
 					</div>
 				</fieldset>

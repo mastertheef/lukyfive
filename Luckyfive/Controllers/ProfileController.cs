@@ -11,10 +11,12 @@ namespace Luckyfive.Web.Controllers
     public class ProfileController : BaseController
     {
         private readonly IProfileService profileService;
+        private readonly IMyEmailService emailService;
 
-        public ProfileController(IProfileService profileService)
+        public ProfileController(IProfileService profileService, IMyEmailService emailService)
         {
             this.profileService = profileService;
+            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -46,6 +48,24 @@ namespace Luckyfive.Web.Controllers
             return new JsonResult()
             {
                 Data = new { success = true }
+            };
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangeEmail(string newEmail)
+        {
+            var userId = this.User.Identity.GetUserId();
+            var code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+            var postbackUrl = Url.Action("ChangeEmail", "Account", new { userId = userId, code = code, newEmail = newEmail }, protocol: Request.Url.Scheme);
+
+            await this.emailService.SendConfirmationEmail(postbackUrl, newEmail);
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    success = true
+                }
             };
         }
     }

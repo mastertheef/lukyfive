@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Luckyfive.Models;
 using Luckyfive.Web.Models;
 using Luckyfive.Service;
+using Luckyfive.Service.Abstraction;
 
 namespace Luckyfive.Web.Controllers
 {
@@ -20,10 +21,12 @@ namespace Luckyfive.Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IMyEmailService _myEmailService;
+        private readonly IAccountService accountService;
 
-        public AccountController(IMyEmailService myEmailService)
+        public AccountController(IMyEmailService myEmailService, IAccountService accountService)
         {
             _myEmailService = myEmailService;
+            this.accountService = accountService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -49,8 +52,6 @@ namespace Luckyfive.Web.Controllers
                 _userManager = value;
             }
         }
-
-        
 
         //
         // GET: /Account/Login
@@ -204,6 +205,43 @@ namespace Luckyfive.Web.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ChangeEmail(string userId, string code, string newEmail)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                var user = await this.UserManager.FindByIdAsync(userId);
+                user.Email = newEmail;
+                user.UserName = newEmail;
+                await this.UserManager.UpdateAsync(user);
+                var conformResult = await this.UserManager.ConfirmEmailAsync(userId, code);
+                return View(conformResult.Succeeded ? "ConfirmEmail" : "Error");
+            }
+
+            return View("Error");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<JsonResult> IsEmailUsed(string email)
+        {
+            var result = await this.accountService.IsEmailUsed(email);
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    result = result
+                }
+            };
         }
 
         //
