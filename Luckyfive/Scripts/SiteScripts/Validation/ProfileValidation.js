@@ -14,9 +14,12 @@
                     type: 'POST',
                     data: {email: val},
                     success: function (data) {
-                        console.log(data);
                         callback(!data.result);
+                    },
+                    fail: function () {
+                        callback(false);
                     }
+
                 };
 
                 var options = $.extend(defaults, parms);
@@ -27,7 +30,6 @@
         };
 
         ko.validation.registerExtenders();
-
 
         var makeRequired = function (field, message) {
             field.extend({
@@ -45,14 +47,13 @@
             makeRequired(model.selectedCountry, 'Country is required');
             makeRequired(model.selectedRegion, 'Region is required');
             makeRequired(model.selectedCity, 'City is required');
-            makeRequired(model.newEmail, 'Email is required');
 
             model.newEmail.extend({
                 email: {
                     params: true,
                     message: 'New Email should be a correct email'
                 },
-                emailUsed: true
+                emailUsed: true,
             });
 
             model.isValid = function() {

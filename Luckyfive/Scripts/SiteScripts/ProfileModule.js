@@ -22,7 +22,12 @@
             name: ko.observable(''),
             phone: ko.observable(''),
 
-            newEmail: ko.observable('')
+            newEmail: ko.observable(''),
+            showEmailSpinner: ko.observable(false),
+            showConfirmMessage: ko.observable(false),
+            emailConfirmStrongMessage: ko.observable('Well done!'),
+            emailConfirmMessage: ko.observable(''),
+            emailConfirmStyle: ko.observable('alert-success')
         };
 
         Window.App.ProfileValidation.Extend(viewModel);
@@ -89,11 +94,22 @@
         };
 
         viewModel.newEmail.isValidating.subscribe(function (isValidating) {
+            viewModel.showEmailSpinner(isValidating);
             if (!isValidating && viewModel.newEmail.isValid()) {
                 Window.App.ProfileModuleService.ChangeEmail(viewModel.newEmail())
                     .then(function (result) {
-                        console.log(result);
+                        if (result.result) {
+                            viewModel.emailConfirmStrongMessage('Well done!');
+                            viewModel.emailConfirmMessage('Confirmaition email is sent to specified email. Please click the link in the email.');
+                            viewModel.emailConfirmStyle('alert-success');
+                            viewModel.showConfirmMessage(true);
+                        }
                     });
+            } else if (!isValidating && !viewModel.newEmail.isValid()) {
+                viewModel.emailConfirmStrongMessage('Error!');
+                viewModel.emailConfirmMessage(viewModel.newEmail.error());
+                viewModel.emailConfirmStyle('alert-danger');
+                viewModel.showConfirmMessage(true);
             }
         });
 
