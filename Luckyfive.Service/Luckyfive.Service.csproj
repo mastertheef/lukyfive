@@ -77,8 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\IProfileService.cs" />
+    <Compile Include="AccountService.cs" />
     <Compile Include="EmailService.cs" />
-    <Compile Include="IMyEmailService.cs" />
+    <Compile Include="Abstraction\IAccountService.cs" />
+    <Compile Include="Abstraction\IMyEmailService.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="MyEmailService.cs" />
     <Compile Include="ProfileService.cs" />
