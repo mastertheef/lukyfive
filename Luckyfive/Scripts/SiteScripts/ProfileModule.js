@@ -22,12 +22,13 @@
             name: ko.observable(''),
             phone: ko.observable(''),
 
-            newEmail: ko.observable(''),
+            newEmail: ko.observable(),
             showEmailSpinner: ko.observable(false),
             showConfirmMessage: ko.observable(false),
             emailConfirmStrongMessage: ko.observable('Well done!'),
             emailConfirmMessage: ko.observable(''),
-            emailConfirmStyle: ko.observable('alert-success')
+            emailConfirmStyle: ko.observable('alert-success'),
+            validateNow: ko.observable(false)
         };
 
         Window.App.ProfileValidation.Extend(viewModel);
@@ -94,8 +95,9 @@
         };
 
         viewModel.newEmail.isValidating.subscribe(function (isValidating) {
+            console.log(isValidating);
             viewModel.showEmailSpinner(isValidating);
-            if (!isValidating && viewModel.newEmail.isValid()) {
+            if (viewModel.newEmail.isModified() && !isValidating && viewModel.newEmail.isValid()) {
                 Window.App.ProfileModuleService.ChangeEmail(viewModel.newEmail())
                     .then(function (result) {
                         if (result.result) {
@@ -105,7 +107,7 @@
                             viewModel.showConfirmMessage(true);
                         }
                     });
-            } else if (!isValidating && !viewModel.newEmail.isValid()) {
+            } else if (viewModel.newEmail.isModified() && !isValidating && !viewModel.newEmail.isValid()) {
                 viewModel.emailConfirmStrongMessage('Error!');
                 viewModel.emailConfirmMessage(viewModel.newEmail.error());
                 viewModel.emailConfirmStyle('alert-danger');
@@ -114,7 +116,7 @@
         });
 
         viewModel.onChangeEmailClick = function () {
-            viewModel.newEmail.isValidating(true);
+            viewModel.newEmail.isModified(true);
         };
 
         var loadData = function () {

@@ -14,10 +14,10 @@
                     type: 'POST',
                     data: {email: val},
                     success: function (data) {
-                        callback(!data.result);
+                        callback(data.result);
                     },
                     fail: function () {
-                        callback(false);
+                        callback(true);
                     }
 
                 };
@@ -26,7 +26,7 @@
 
                 $.ajax(options);
             },
-            message: 'This email is already in use'
+            message: 'This Email is used.'
         };
 
         ko.validation.registerExtenders();
@@ -50,10 +50,9 @@
 
             model.newEmail.extend({
                 email: {
-                    params: true,
-                    message: 'New Email should be a correct email'
+                    message: 'New Email should be a correct email',
                 },
-                emailUsed: true,
+                emailUsed: false
             });
 
             model.isValid = function() {
