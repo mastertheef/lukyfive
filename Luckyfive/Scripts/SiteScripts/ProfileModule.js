@@ -94,10 +94,9 @@
             }
         };
 
-        viewModel.newEmail.isValidating.subscribe(function (isValidating) {
-            console.log(isValidating);
-            viewModel.showEmailSpinner(isValidating);
-            if (viewModel.newEmail.isModified() && !isValidating && viewModel.newEmail.isValid()) {
+        viewModel.onChangeEmailClick = function () {
+            if (viewModel.newEmail.isValid()) {
+                viewModel.showEmailSpinner(true);
                 Window.App.ProfileModuleService.ChangeEmail(viewModel.newEmail())
                     .then(function (result) {
                         if (result.result) {
@@ -105,18 +104,21 @@
                             viewModel.emailConfirmMessage('Confirmaition email is sent to specified email. Please click the link in the email.');
                             viewModel.emailConfirmStyle('alert-success');
                             viewModel.showConfirmMessage(true);
+                        } else {
+                            viewModel.emailConfirmStrongMessage('Error!');
+                            viewModel.emailConfirmMessage("This email is already used.");
+                            viewModel.emailConfirmStyle('alert-danger');
+                            viewModel.showConfirmMessage(true);
                         }
+
+                        viewModel.showEmailSpinner(false);
                     });
-            } else if (viewModel.newEmail.isModified() && !isValidating && !viewModel.newEmail.isValid()) {
+            } else if (!viewModel.newEmail.isValid()) {
                 viewModel.emailConfirmStrongMessage('Error!');
                 viewModel.emailConfirmMessage(viewModel.newEmail.error());
                 viewModel.emailConfirmStyle('alert-danger');
                 viewModel.showConfirmMessage(true);
             }
-        });
-
-        viewModel.onChangeEmailClick = function () {
-            viewModel.newEmail.isModified(true);
         };
 
         var loadData = function () {
