@@ -28,7 +28,15 @@
             emailConfirmStrongMessage: ko.observable('Well done!'),
             emailConfirmMessage: ko.observable(''),
             emailConfirmStyle: ko.observable('alert-success'),
-            validateNow: ko.observable(false)
+            
+            password: ko.observable(''),
+            newPassword: ko.observable(''),
+            confirmNewPassword: ko.observable(''),
+            showPasswordSpinner: ko.observable(false),
+            showPasswordMessage: ko.observable(false),
+            passwordConfirmStrongMessage: ko.observable('Well done!'),
+            passwordConfirmMessage: ko.observable(''),
+            passwordConfirmStyle: ko.observable('alert-success'),
         };
 
         Window.App.ProfileValidation.Extend(viewModel);
@@ -114,10 +122,33 @@
                         viewModel.showEmailSpinner(false);
                     });
             } else if (!viewModel.newEmail.isValid()) {
-                viewModel.emailConfirmStrongMessage('Error!');
-                viewModel.emailConfirmMessage(viewModel.newEmail.error());
-                viewModel.emailConfirmStyle('alert-danger');
-                viewModel.showConfirmMessage(true);
+                
+            }
+        };
+
+        viewModel.onChangePasswordClick = function () {
+            if (viewModel.isPasswordsValid()) {
+                viewModel.showPasswordSpinner(true);
+                Window.App.ProfileModuleService.ChangePassword(viewModel.password(), viewModel.newPassword())
+                .then(function (result) {
+                    if (result && result.success === true) {
+                        viewModel.passwordConfirmStrongMessage('Success!');
+                        viewModel.passwordConfirmMessage("Your password have been changed");
+                        viewModel.passwordConfirmStyle('alert-success');
+                        
+                    } else if (result && result.success === false) {
+                        viewModel.passwordConfirmStrongMessage('Error!');
+                        viewModel.passwordConfirmMessage(result.message);
+                        viewModel.passwordConfirmStyle('alert-danger');
+                    }
+                    viewModel.showPasswordSpinner(false);
+                    viewModel.showPasswordMessage(true);
+                });
+                
+            } else {
+                viewModel.password.isModified(true);
+                viewModel.newPassword.isModified(true);
+                viewModel.confirmNewPassword.isModified(true);
             }
         };
 

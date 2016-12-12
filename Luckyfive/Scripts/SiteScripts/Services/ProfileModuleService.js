@@ -27,10 +27,20 @@
             });
         };
 
+        var changePassword = function (oldPass, newPass) {
+            return $.ajax({
+                method: 'POST',
+                url: 'ChangePassword',
+                data: { oldPassword: oldPass, newPassword: newPass },
+                dataType: 'json'
+            });
+        };
+
         return {
             GetProfileSettings: getProfileSettings,
             SaveProfileSettings: saveProfileSettings,
             ChangeEmail: changeEmail,
+            ChangePassword: changePassword
         };
     })();
 })(Window);

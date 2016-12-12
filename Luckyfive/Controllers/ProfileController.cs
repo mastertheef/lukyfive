@@ -82,5 +82,21 @@ namespace Luckyfive.Web.Controllers
                 }
             };
         }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangePassword(string oldPassword, string newPassword)
+        {
+            var currentUser = this.User.Identity.Name;
+            var result = await Task.Run(() => { return this.UserManager.ChangePassword(this.User.Identity.GetUserId(), oldPassword, newPassword); });
+
+            return new JsonResult
+            {
+                Data = new
+                {
+                    success = result.Succeeded,
+                    message = !result.Succeeded ? "Provided password is incorrect" : string.Empty
+                }
+            };
+        }
     }
 }
