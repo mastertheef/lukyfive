@@ -25,10 +25,8 @@ namespace Luckyfive.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Contact()
+        public ActionResult Create()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
