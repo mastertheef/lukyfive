@@ -15,5 +15,14 @@ namespace Luckyfive.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult Upload(object file)
+        {
+            return new JsonResult()
+            {
+                Data = new {result = true}
+            };
+        }
     }
 }

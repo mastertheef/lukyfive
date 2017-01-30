@@ -7,10 +7,8 @@
             description: ko.observable('')
         };
 
-        
 
-        var init = function () {
-            Dropzone.options.autoProcessQueue = false;
+        var init = function() {
             ko.applyBindings(viewModel);
         };
 
