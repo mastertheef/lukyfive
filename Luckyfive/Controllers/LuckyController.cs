@@ -19,6 +19,7 @@ namespace Luckyfive.Web.Controllers
         [HttpPost]
         public JsonResult Upload(object file)
         {
+            // TODO: make validation for file and save to temp folder
             return new JsonResult()
             {
                 Data = new {result = true}
