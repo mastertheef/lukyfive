@@ -23,7 +23,7 @@ namespace Luckyfive.Web
 
         void Session_End(object sender, EventArgs E)
         {
-            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+            var tempFolder = Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);

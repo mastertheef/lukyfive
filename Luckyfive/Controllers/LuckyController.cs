@@ -16,7 +16,7 @@ namespace Luckyfive.Web.Controllers
     {
         public ActionResult Create()
         {
-            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+            var tempFolder = Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
 
             // clear temp directory for current session
             if (Directory.Exists(tempFolder))
@@ -30,7 +30,7 @@ namespace Luckyfive.Web.Controllers
         [HttpPost]
         public JsonResult Upload(HttpPostedFileBase[] files)
         {
-            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+            var tempFolder = Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
             var file = files.First();
 
             if (!Directory.Exists(tempFolder)) {
