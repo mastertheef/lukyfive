@@ -4,7 +4,10 @@ using Luckyfive.DTO;
 using Luckyfive.Service;
 using Luckyfive.Service.Abstraction;
 using Microsoft.AspNet.Identity;
-
+using System.Web;
+using System.IO;
+using System.Linq;
+using Luckyfive.Web.Properties;
 
 namespace Luckyfive.Web.Controllers
 {
@@ -13,13 +16,33 @@ namespace Luckyfive.Web.Controllers
     {
         public ActionResult Create()
         {
+            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+
+            // clear temp directory for current session
+            if (Directory.Exists(tempFolder))
+            {
+                var files = Directory.EnumerateFiles(tempFolder).ToList();
+                files.ForEach(x => System.IO.File.Delete(x));
+            }
             return View();
         }
 
         [HttpPost]
-        public JsonResult Upload(object file)
+        public JsonResult Upload(HttpPostedFileBase[] files)
         {
-            // TODO: make validation for file and save to temp folder
+            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+            var file = files.First();
+
+            if (!Directory.Exists(tempFolder)) {
+                Directory.CreateDirectory(tempFolder);
+            }
+
+            using (var fileStream = System.IO.File.Create(tempFolder))
+            {
+                file.InputStream.Seek(0, SeekOrigin.Begin);
+                file.InputStream.CopyTo(fileStream);
+            }
+
             return new JsonResult()
             {
                 Data = new {result = true}

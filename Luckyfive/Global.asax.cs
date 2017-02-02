@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Luckyfive.Web.Properties;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +19,15 @@ namespace Luckyfive.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Run();
+        }
+
+        void Session_End(object sender, EventArgs E)
+        {
+            var tempFolder = HttpContext.Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
+            if (Directory.Exists(tempFolder))
+            {
+                Directory.Delete(tempFolder, true);
+            }
         }
     }
 }

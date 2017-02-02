@@ -8,7 +8,13 @@
         };
 
 
-        var init = function() {
+        var init = function () {
+            Dropzone.options.dropzoneForm = {
+                paramName: "files",
+                acceptedFiles: "image/*",
+                maxFiles: 10
+               
+            };
             ko.applyBindings(viewModel);
         };
 
