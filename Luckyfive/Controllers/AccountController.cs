@@ -12,6 +12,8 @@ using Luckyfive.Models;
 using Luckyfive.Web.Models;
 using Luckyfive.Service;
 using Luckyfive.Service.Abstraction;
+using Luckyfive.Web.Properties;
+using System.IO;
 
 namespace Luckyfive.Web.Controllers
 {

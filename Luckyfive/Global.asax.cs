@@ -20,14 +20,5 @@ namespace Luckyfive.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Run();
         }
-
-        void Session_End(object sender, EventArgs E)
-        {
-            var tempFolder = Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
-            if (Directory.Exists(tempFolder))
-            {
-                Directory.Delete(tempFolder, true);
-            }
-        }
     }
 }

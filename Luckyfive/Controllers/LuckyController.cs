@@ -28,20 +28,19 @@ namespace Luckyfive.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult CreateLucky(LuckyDTO data)
+        {
+            //TODO: create database entry and set its id in session
+            return new JsonResult
+            {
+                Data = new { success = true }
+            };
+        }
+
+        [HttpPost]
         public JsonResult Upload(HttpPostedFileBase[] files)
         {
-            var tempFolder = Server.MapPath(string.Format(Resources.tempFolderPath, Session.SessionID));
-            var file = files.First();
-
-            if (!Directory.Exists(tempFolder)) {
-                Directory.CreateDirectory(tempFolder);
-            }
-
-            using (var fileStream = System.IO.File.Create(tempFolder))
-            {
-                file.InputStream.Seek(0, SeekOrigin.Begin);
-                file.InputStream.CopyTo(fileStream);
-            }
+            //TODO: save ids of files to db, upload files to s3 and clear session
 
             return new JsonResult()
             {

@@ -6,6 +6,7 @@
 
 @Styles.Render("~/dropzone/css")
 @Scripts.Render("~/bundles/dropzone")
+<script type="text/javascript" src="~/Scripts/SiteScripts/Services/LuckyService.js"></script>
 <script type="text/javascript" src="~/Scripts/SiteScripts/LuckyModule.js"></script>
 
 
@@ -17,14 +18,14 @@
                 <div class="form-group">
                     <label for="name" class="col-md-2 control-label">Назва</label>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" id="name" placeholder="Назва"/>
+                        <input type="text" class="form-control" id="name" placeholder="Назва" data-bind="value:name"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="description" class="col-lg-2 control-label">Опис</label>
                     <div class="col-md-7">
-                        <textarea rows="5" class="form-control" id="description" placeholder="Назва"></textarea>
+                        <textarea rows="5" class="form-control" id="description" placeholder="Назва" data-bind="value:description"></textarea>
                     </div>
                 </div>
 
@@ -42,6 +43,14 @@
                         </div>
                     </div>
                 </div>
+				<div class="form-group">
+					<div class="col-lg-1 col-lg-offset-2">
+						<button class="btn btn-primary" data-bind="event:{click: onSaveButtonClick}">Save</button>
+					</div>
+					@*<div class="col-lg-1">
+						<i class="fa fa-circle-o-notch fa-spin col-lg-1" style="font-size: 24px; color: red" data-bind="visible: showSaveSpinner"></i>
+					</div>*@
+				</div>
             </fieldset>
         </div>
     </div>

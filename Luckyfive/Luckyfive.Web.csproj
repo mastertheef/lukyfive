@@ -266,6 +266,7 @@
     <Content Include="Scripts\SiteScripts\LuckyModule.js" />
     <Content Include="Scripts\SiteScripts\ProfileModule.js" />
     <Content Include="Scripts\SiteScripts\Services\GeoDataModule.js" />
+    <Content Include="Scripts\SiteScripts\Services\LuckyService.js" />
     <Content Include="Scripts\SiteScripts\Services\ProfileModuleService.js" />
     <Content Include="Scripts\SiteScripts\Validation\ProfileValidation.js" />
     <Content Include="Scripts\_references.js" />
