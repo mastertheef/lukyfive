@@ -76,8 +76,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstraction\IAdvertismentService.cs" />
     <Compile Include="Abstraction\IProfileService.cs" />
     <Compile Include="AccountService.cs" />
+    <Compile Include="AdvertismentService.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="Abstraction\IAccountService.cs" />
     <Compile Include="Abstraction\IMyEmailService.cs" />

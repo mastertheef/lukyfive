@@ -9,6 +9,11 @@
 
         var myDropzone = {};
 
+        var uploadFiles = function () {
+            // todo: show spinner, show confirm if no images, change spinner message
+            myDropzone.processQueue();
+        };
+
         viewModel.onSaveButtonClick = function () {
             var data = {
                 Name: viewModel.name(),
@@ -16,11 +21,6 @@
             };
             Window.App.LuckyService.CreateLucky(data)
                 .then(uploadFiles);
-        };
-
-        var uploadFiles = function () {
-            // todo: show spinner, show confirm if no images, change spinner message
-            myDropzone.processQueue();
         };
 
         var init = function () {

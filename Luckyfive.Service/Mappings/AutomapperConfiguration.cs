@@ -17,6 +17,8 @@ namespace Luckyfive.Service.Mappings
             {
                 x.CreateMap<ProfileSettings, ProfileSettingsDTO>();
                 x.CreateMap<ProfileSettingsDTO, ProfileSettings>();
+                x.CreateMap<Advertisments, AdvertismentDTO>();
+                x.CreateMap<AdvertismentDTO, Advertisments>();
             });
         }
     }
