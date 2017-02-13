@@ -120,4 +120,7 @@
   <data name="AdvertsmentId" xml:space="preserve">
     <value />
   </data>
+  <data name="AmazonUrl" xml:space="preserve">
+    <value>https://s3-us-west-2.amazonaws.com</value>
+  </data>
 </root>

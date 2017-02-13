@@ -8,14 +8,15 @@ namespace Luckyfive.Models
 
     public partial class Photos
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
+        [ForeignKey("Advertisments")]
         public int AdvId { get; set; }
 
         [Required]
         [StringLength(256)]
         public string Url { get; set; }
 
-        public virtual Advertisments Advertisments { get; set; }
+       public virtual Advertisments Advertisments { get; set; }
     }
 }

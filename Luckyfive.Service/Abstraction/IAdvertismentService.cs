@@ -9,6 +9,7 @@ namespace Luckyfive.Service.Abstraction
 {
     public interface IAdvertismentService
     {
-        Task<int> CreateAdvertisment(AdvertismentDTO advertisment);
+        Task<int> CreateAdvertismentAsync(AdvertismentDTO advertisment);
+        Task CreatePhotoAsync(PhotoDTO photo);
     }
 }

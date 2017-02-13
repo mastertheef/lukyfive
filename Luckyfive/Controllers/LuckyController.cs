@@ -18,10 +18,12 @@ namespace Luckyfive.Web.Controllers
     {
         private const int AdvertismentDuration = 14;
         private readonly IAdvertismentService advertismentService;
+        private readonly ICloudService cloudService;
 
-        public LuckyController(IAdvertismentService advertismentService)
+        public LuckyController(IAdvertismentService advertismentService, ICloudService cloudService)
         {
             this.advertismentService = advertismentService;
+            this.cloudService = cloudService;
         }
 
         public ActionResult Create()
@@ -46,7 +48,7 @@ namespace Luckyfive.Web.Controllers
             data.Status = (int) AdvertismentStatusEnum.Approved; // Change to pending when admin site will be done
             data.Lucky = true;
             
-            var advId = await this.advertismentService.CreateAdvertisment(data);
+            var advId = await this.advertismentService.CreateAdvertismentAsync(data);
 
             Session[Resources.AdvertsmentId] = advId;
             //TODO: create database entry and set its id in session
@@ -57,9 +59,25 @@ namespace Luckyfive.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Upload(HttpPostedFileBase[] files)
+        public async Task<JsonResult> Upload(HttpPostedFileBase[] files)
         {
             //TODO: save ids of files to db, upload files to s3 and clear session
+            var adId = (int) Session[Resources.AdvertsmentId];
+
+            foreach (var file in files)
+            {
+                var photoId = Guid.NewGuid();
+                var fileS3Name = $"{adId}/{photoId + Path.GetExtension(file.FileName)}";
+                var photo = new PhotoDTO
+                {
+                    Id = photoId,
+                    AdvId = adId,
+                    Url = $"{Resources.AmazonUrl}/{this.cloudService.BucketName}/{fileS3Name}"
+                };
+
+                await this.advertismentService.CreatePhotoAsync(photo);
+                await this.cloudService.UploadFromStream(fileS3Name, file.InputStream);
+            }
 
             Session[Resources.AdvertsmentId] = null;
             return new JsonResult()

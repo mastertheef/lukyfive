@@ -28,10 +28,8 @@ namespace Luckyfive.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Advertisments>()
-                .HasMany(e => e.Photos)
-                .WithRequired(e => e.Advertisments)
-                .HasForeignKey(e => e.AdvId)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.Photos);
+                
 
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Advertisments)

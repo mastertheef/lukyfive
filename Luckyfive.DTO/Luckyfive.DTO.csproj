@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AdvertismentDTO.cs" />
     <Compile Include="Enums\AdvertismentStatusEnum.cs" />
+    <Compile Include="PhotoDTO.cs" />
     <Compile Include="ProfileSettingsDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

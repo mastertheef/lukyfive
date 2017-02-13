@@ -68,5 +68,14 @@ namespace Luckyfive.Web.Properties {
                 return ResourceManager.GetString("AdvertsmentId", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://s3-us-west-2.amazonaws.com.
+        /// </summary>
+        internal static string AmazonUrl {
+            get {
+                return ResourceManager.GetString("AmazonUrl", resourceCulture);
+            }
+        }
     }
 }
