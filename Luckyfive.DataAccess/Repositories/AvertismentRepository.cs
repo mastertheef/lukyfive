@@ -3,7 +3,7 @@ using Luckyfive.Models;
 
 namespace Luckyfive.DataAccess.Repositories
 {
-    public class AvertismentRepository : RepositoryBase<Advertisments>, IAvertismentRepository
+    public class AvertismentRepository : RepositoryBase<Advertisment>, IAvertismentRepository
     {
         public AvertismentRepository(IDbFactory dbFactory) : base(dbFactory)
         {
@@ -11,7 +11,7 @@ namespace Luckyfive.DataAccess.Repositories
         }
     }
 
-    public interface IAvertismentRepository : IRepository<Advertisments>
+    public interface IAvertismentRepository : IRepository<Advertisment>
     {
 
     }

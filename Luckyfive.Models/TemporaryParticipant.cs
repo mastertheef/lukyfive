@@ -6,12 +6,12 @@ namespace Luckyfive.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class TemporaryParticipants
+    public partial class TemporaryParticipant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TemporaryParticipants()
+        public TemporaryParticipant()
         {
-            Participations = new HashSet<Participations>();
+            Participations = new HashSet<Participation>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace Luckyfive.Models
         public string Email { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participations> Participations { get; set; }
+        public virtual ICollection<Participation> Participations { get; set; }
     }
 }

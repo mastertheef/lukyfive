@@ -15,12 +15,12 @@ namespace Luckyfive.Service.Mappings
         {
             Mapper.Initialize(x =>
             {
-                x.CreateMap<ProfileSettings, ProfileSettingsDTO>();
-                x.CreateMap<ProfileSettingsDTO, ProfileSettings>();
-                x.CreateMap<Advertisments, AdvertismentDTO>();
-                x.CreateMap<AdvertismentDTO, Advertisments>();
-                x.CreateMap<PhotoDTO, Photos>();
-                x.CreateMap<Photos, PhotoDTO>();
+                x.CreateMap<ProfileSetting, ProfileSettingsDTO>();
+                x.CreateMap<ProfileSettingsDTO, ProfileSetting>();
+                x.CreateMap<Advertisment, AdvertismentDTO>();
+                x.CreateMap<AdvertismentDTO, Advertisment>();
+                x.CreateMap<PhotoDTO, Photo>();
+                x.CreateMap<Photo, PhotoDTO>();
             });
         }
     }

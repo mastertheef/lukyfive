@@ -8,14 +8,14 @@ using Luckyfive.Models;
 
 namespace Luckyfive.DataAccess.Repositories
 {
-    public class ProfileRepository : RepositoryBase<ProfileSettings>, IProfileRepository
+    public class ProfileRepository : RepositoryBase<ProfileSetting>, IProfileRepository
     {
         public ProfileRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
     }
 
-    public interface IProfileRepository : IRepository<ProfileSettings>
+    public interface IProfileRepository : IRepository<ProfileSetting>
     {
         
     }

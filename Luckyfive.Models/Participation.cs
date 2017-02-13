@@ -6,7 +6,7 @@ namespace Luckyfive.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Participations
+    public partial class Participation
     {
         public int Id { get; set; }
 
@@ -20,10 +20,10 @@ namespace Luckyfive.Models
         [StringLength(128)]
         public string UserId { get; set; }
 
-        public virtual Advertisments Advertisments { get; set; }
+        public virtual Advertisment Advertisment { get; set; }
 
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
 
-        public virtual TemporaryParticipants TemporaryParticipants { get; set; }
+        public virtual TemporaryParticipant TemporaryParticipant { get; set; }
     }
 }

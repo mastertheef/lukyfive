@@ -30,7 +30,7 @@ namespace Luckyfive.Service
 
         public async Task SaveProfileSettings(ProfileSettingsDTO settings)
         {
-            var settingsEntity = Mapper.Map<ProfileSettings>(settings);
+            var settingsEntity = Mapper.Map<ProfileSetting>(settings);
             this.profRepo.AddOrUpdate(settingsEntity);
             await unitOfWork.CommitAsync();
         }

@@ -52,15 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advertisments.cs" />
-    <Compile Include="AspNetUsers.cs" />
-    <Compile Include="Entities.cs" />
+    <Compile Include="Advertisment.cs" />
+    <Compile Include="AspNetUser.cs" />
     <Compile Include="LuckyfiveEntities.cs" />
-    <Compile Include="Participations.cs" />
-    <Compile Include="Photos.cs" />
-    <Compile Include="ProfileSettings.cs" />
+    <Compile Include="Participation.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="ProfileSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemporaryParticipants.cs" />
+    <Compile Include="TemporaryParticipant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

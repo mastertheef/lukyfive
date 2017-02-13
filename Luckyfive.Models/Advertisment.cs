@@ -6,13 +6,13 @@ namespace Luckyfive.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Advertisments
+    public partial class Advertisment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Advertisments()
+        public Advertisment()
         {
-            Participations = new HashSet<Participations>();
-            Photos = new HashSet<Photos>();
+            Participations = new HashSet<Participation>();
+            Photos = new HashSet<Photo>();
         }
 
         public int Id { get; set; }
@@ -36,15 +36,14 @@ namespace Luckyfive.Models
 
         [Required]
         [StringLength(128)]
-        [ForeignKey("Owner")]
         public string OwnerId { get; set; }
 
-        public virtual AspNetUsers Owner { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participations> Participations { get; set; }
+        public virtual ICollection<Participation> Participations { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Photos> Photos { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }

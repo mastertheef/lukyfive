@@ -30,24 +30,24 @@ namespace Luckyfive.Service
 
         public async Task<int> CreateAdvertismentAsync(AdvertismentDTO advertisment)
         {
-            var adv = Mapper.Map(advertisment, new Advertisments());
+            var adv = Mapper.Map(advertisment, new Advertisment());
             await this.AddAdvertisment(adv);
             return adv.Id;
         }
 
         public async Task CreatePhotoAsync(PhotoDTO photo)
         {
-            var photoModel = Mapper.Map(photo, new Photos());
+            var photoModel = Mapper.Map(photo, new Photo());
             await this.AddPhoto(photoModel);
         }
 
-        private async Task AddAdvertisment(Advertisments adv)
+        private async Task AddAdvertisment(Advertisment adv)
         {
             this.advRepo.Add(adv);
             await unitOfWork.CommitAsync();
         }
 
-        private async Task AddPhoto(Photos photo)
+        private async Task AddPhoto(Photo photo)
         {
             this.photoRepo.Add(photo);
             await unitOfWork.CommitAsync();

@@ -6,7 +6,7 @@ namespace Luckyfive.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProfileSettings
+    public partial class ProfileSetting
     {
         public string Id { get; set; }
 
@@ -22,6 +22,6 @@ namespace Luckyfive.Models
         [StringLength(256)]
         public string ContactName { get; set; }
 
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
