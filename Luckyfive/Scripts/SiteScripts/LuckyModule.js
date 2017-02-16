@@ -4,8 +4,11 @@
     Window.App.LuckyModule = (function() {
         var viewModel = {
             name: ko.observable(''),
-            description: ko.observable('')
-        };
+            description: ko.observable(''),
+            loading: ko.observable(false),
+            success: ko.observable(false)
+    };
+        Window.App.LuckyValidation.extend(viewModel);
 
         var myDropzone = {};
 
@@ -15,12 +18,26 @@
         };
 
         viewModel.onSaveButtonClick = function () {
-            var data = {
-                Name: viewModel.name(),
-                Description: viewModel.description()
-            };
-            Window.App.LuckyService.CreateLucky(data)
-                .then(uploadFiles);
+            if (viewModel.errors().length === 0) {
+                var data = {
+                    Name: viewModel.name(),
+                    Description: viewModel.description()
+                };
+                viewModel.loading(true);
+                Window.App.LuckyService.CreateLucky(data)
+                    .then(uploadFiles)
+                    .then(function() {
+                        viewModel.loading(false);
+                        viewModel.name('');
+                        viewModel.description('');
+                        viewModel.name.isModified(false);
+                        viewModel.description.isModified(false);
+                        myDropzone.removeAllFiles();
+                        viewModel.success(true);
+                    });
+            } else {
+                viewModel.errors.showAllMessages();
+            }
         };
 
         var init = function () {

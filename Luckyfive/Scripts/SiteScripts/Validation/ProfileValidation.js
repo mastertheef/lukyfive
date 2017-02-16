@@ -9,7 +9,7 @@
         var makeRequired = function (field, message) {
             field.extend({
                 required: {
-                    params: true,
+                    params: true
                 }
             });
             field.validationMessage = ko.observable(message);
