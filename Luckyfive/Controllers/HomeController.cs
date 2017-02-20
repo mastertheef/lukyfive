@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Luckyfive.Service.Abstraction;
 
 namespace Luckyfive.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        public ActionResult Index()
+        private readonly IAdvertismentService advService;
+
+        public HomeController(IAdvertismentService advService)
         {
-            if (Request.IsAuthenticated)
-            {
-                ViewBag.UserName = this.User.Identity.Name;
-            }
+            this.advService = advService;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            var foundTop = await this.advService.GetAdvertismentsForHomePage();
             return View();
         }
 
@@ -28,6 +34,11 @@ namespace Luckyfive.Web.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View("Error");
         }
     }
 }

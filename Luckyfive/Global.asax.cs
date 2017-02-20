@@ -20,5 +20,12 @@ namespace Luckyfive.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bootstrapper.Run();
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            Server.ClearError();
+            Response.Redirect("/Home/Error");
+        }
     }
 }

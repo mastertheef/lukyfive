@@ -51,7 +51,6 @@ namespace Luckyfive.Web.Controllers
             var advId = await this.advertismentService.CreateAdvertismentAsync(data);
 
             Session[Resources.AdvertsmentId] = advId;
-            //TODO: create database entry and set its id in session
             return new JsonResult
             {
                 Data = new { success = true }
@@ -63,7 +62,7 @@ namespace Luckyfive.Web.Controllers
         {
             //TODO: save ids of files to db, upload files to s3 and clear session
             var adId = (int) Session[Resources.AdvertsmentId];
-
+            var first = true;
             foreach (var file in files)
             {
                 var photoId = Guid.NewGuid();
@@ -72,9 +71,10 @@ namespace Luckyfive.Web.Controllers
                 {
                     Id = photoId,
                     AdvId = adId,
-                    Url = $"{Resources.AmazonUrl}/{this.cloudService.BucketName}/{fileS3Name}"
+                    Url = $"{Resources.AmazonUrl}/{this.cloudService.BucketName}/{fileS3Name}",
+                    First = first
                 };
-
+                first = false;
                 await this.advertismentService.CreatePhotoAsync(photo);
                 await this.cloudService.UploadFromStream(fileS3Name, file.InputStream);
             }

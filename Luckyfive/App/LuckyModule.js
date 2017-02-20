@@ -48,9 +48,13 @@
                 acceptedFiles: "image/*",
                 maxFiles: 10,
                 init: function () {
+                    this.on("complete", function (file) {
+                        this.removeFile(file);
+                    });
                     myDropzone = this;
                 }
             };
+            
             ko.applyBindings(viewModel);
         };
 

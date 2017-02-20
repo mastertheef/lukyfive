@@ -1,3 +1,6 @@
+using System.Data.Entity.ModelConfiguration;
+using Luckyfive.Models.Configurations;
+
 namespace Luckyfive.Models
 {
     using System;
@@ -18,6 +21,7 @@ namespace Luckyfive.Models
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<ProfileSetting> ProfileSettings { get; set; }
         public virtual DbSet<TemporaryParticipant> TemporaryParticipants { get; set; }
+        public virtual DbSet<TopActualAdvertisment> TopActualAdvertisments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -53,6 +57,9 @@ namespace Luckyfive.Models
                 .HasMany(e => e.Participations)
                 .WithOptional(e => e.TemporaryParticipant)
                 .HasForeignKey(e => e.TempUserId);
+
+            //modelBuilder.Configurations.Add(new TopActualAdvertismentConfiguration());
+            modelBuilder.Entity<TopActualAdvertisment>();
         }
 
         public virtual void Commit()

@@ -15,6 +15,7 @@ namespace Luckyfive.Models
         [Required]
         [StringLength(256)]
         public string Url { get; set; }
+        public bool First { get; set; }
 
         public virtual Advertisment Advertisment { get; set; }
     }

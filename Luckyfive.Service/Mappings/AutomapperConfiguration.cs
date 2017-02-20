@@ -21,6 +21,8 @@ namespace Luckyfive.Service.Mappings
                 x.CreateMap<AdvertismentDTO, Advertisment>();
                 x.CreateMap<PhotoDTO, Photo>();
                 x.CreateMap<Photo, PhotoDTO>();
+                x.CreateMap<TopActualAdvertisment, TopActualAdvertismentDTO>();
+                x.CreateMap<TopActualAdvertismentDTO, TopActualAdvertisment>();
             });
         }
     }

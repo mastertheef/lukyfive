@@ -11,5 +11,6 @@ namespace Luckyfive.DTO
         public Guid Id { get; set; }
         public int AdvId { get; set; }
         public string Url { get; set; }
+        public bool First { get; set; }
     }
 }

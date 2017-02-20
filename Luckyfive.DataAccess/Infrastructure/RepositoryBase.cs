@@ -14,7 +14,7 @@ namespace Luckyfive.DataAccess.Infrastructure
     {
         #region Properties
         private LuckyfiveEntities dataContext;
-        private readonly IDbSet<T> dbSet;
+        protected readonly IDbSet<T> dbSet;
 
         protected IDbFactory DbFactory
         {

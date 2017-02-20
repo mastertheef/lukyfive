@@ -54,12 +54,14 @@
   <ItemGroup>
     <Compile Include="Advertisment.cs" />
     <Compile Include="AspNetUser.cs" />
+    <Compile Include="Configurations\TopActualAdvertismentConfiguration.cs" />
     <Compile Include="LuckyfiveEntities.cs" />
     <Compile Include="Participation.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="ProfileSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemporaryParticipant.cs" />
+    <Compile Include="TopActualAdvertisment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

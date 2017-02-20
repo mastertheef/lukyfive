@@ -47,6 +47,14 @@ namespace Luckyfive.Service
             await unitOfWork.CommitAsync();
         }
 
+        public async Task<List<TopActualAdvertismentDTO>> GetAdvertismentsForHomePage()
+        {
+            var found = await Task.Run(() => this.advRepo.GetForHomePage().ToList());
+            var result = new List<TopActualAdvertismentDTO>();
+            found.ForEach(x => result.Add(Mapper.Map(x, new TopActualAdvertismentDTO())));
+            return result;
+        }
+
         private async Task AddPhoto(Photo photo)
         {
             this.photoRepo.Add(photo);
