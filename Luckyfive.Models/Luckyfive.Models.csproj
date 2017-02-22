@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Advertisment.cs" />
     <Compile Include="AspNetUser.cs" />
-    <Compile Include="Configurations\TopActualAdvertismentConfiguration.cs" />
     <Compile Include="LuckyfiveEntities.cs" />
     <Compile Include="Participation.cs" />
     <Compile Include="Photo.cs" />

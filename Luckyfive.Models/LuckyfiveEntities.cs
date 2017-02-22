@@ -1,5 +1,4 @@
 using System.Data.Entity.ModelConfiguration;
-using Luckyfive.Models.Configurations;
 
 namespace Luckyfive.Models
 {

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Luckyfive.DTO
+@model List<TopActualAdvertismentDTO>
+@{
     ViewBag.Title = "Luckyfive";
 }
 
@@ -18,6 +20,18 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="row">
+                @for (int i = 0; i < 3; i++)
+                {
+                    @Html.Partial("Partials/_AdvertismentLink", @Model[i])
+                }
+            </div>
+            <div class="row">
+                @for (int i = 0; i < 3; i++)
+                {
+                    @Html.Partial("Partials/_AdvertismentLink", @Model[i])
+                }
             </div>
         </div>
     </div>

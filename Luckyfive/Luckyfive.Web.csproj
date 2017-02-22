@@ -311,6 +311,7 @@
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Profile\Options.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Shared\Partials\_AdvertismentLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
