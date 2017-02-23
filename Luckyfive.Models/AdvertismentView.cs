@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Luckyfive.Models
 {
-    public class TopActualAdvertisment
+    public class AdvertismentView
     {
         public int Id { get; set; }
         public string OwnerId { get; set; }

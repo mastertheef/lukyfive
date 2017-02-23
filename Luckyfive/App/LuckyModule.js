@@ -42,6 +42,7 @@
 
         var init = function () {
             Dropzone.options.dropzoneForm = {
+                addRemoveLinks: true,
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 paramName: "files",

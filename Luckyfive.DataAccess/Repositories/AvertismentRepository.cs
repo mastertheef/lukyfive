@@ -18,10 +18,16 @@ namespace Luckyfive.DataAccess.Repositories
         {
             return DbContext.TopActualAdvertisments;
         }
+
+        public IQueryable<AdvertismentView> GetAdvertismentViews()
+        {
+            return DbContext.AdvertismentViews;
+        }
     }
 
     public interface IAvertismentRepository : IRepository<Advertisment>
     {
-       IQueryable<TopActualAdvertisment> GetForHomePage();
+        IQueryable<TopActualAdvertisment> GetForHomePage();
+        IQueryable<AdvertismentView> GetAdvertismentViews();
     }
 }

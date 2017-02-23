@@ -38,7 +38,7 @@ namespace Luckyfive.Service
         public async Task CreatePhotoAsync(PhotoDTO photo)
         {
             var photoModel = Mapper.Map(photo, new Photo());
-            await this.AddPhoto(photoModel);
+            await this.addPhoto(photoModel);
         }
 
         private async Task AddAdvertisment(Advertisment adv)
@@ -47,18 +47,35 @@ namespace Luckyfive.Service
             await unitOfWork.CommitAsync();
         }
 
-        public async Task<List<TopActualAdvertismentDTO>> GetAdvertismentsForHomePage()
+        public async Task<List<AdvertismentViewDTO>> GetAdvertismentsForHomePage()
         {
             var found = await Task.Run(() => this.advRepo.GetForHomePage().ToList());
-            var result = new List<TopActualAdvertismentDTO>();
-            found.ForEach(x => result.Add(Mapper.Map(x, new TopActualAdvertismentDTO())));
-            return result;
+            return this.mapAndReturn(found);
         }
 
-        private async Task AddPhoto(Photo photo)
+       
+
+        public async Task<List<AdvertismentViewDTO>> GetAdvertismentsForUser(string userId)
+        {
+            var found =
+                await Task.Run(() =>
+                {
+                    return this.advRepo.GetAdvertismentViews().Where(x => x.OwnerId == userId).ToList();
+                });
+            return this.mapAndReturn(found);
+        }
+
+        private async Task addPhoto(Photo photo)
         {
             this.photoRepo.Add(photo);
             await unitOfWork.CommitAsync();
+        }
+
+        private List<AdvertismentViewDTO> mapAndReturn<T>(List<T> found) where T: class
+        {
+            var result = new List<AdvertismentViewDTO>();
+            found.ForEach(x => result.Add(Mapper.Map(x, new AdvertismentViewDTO())));
+            return result;
         }
     }
 }

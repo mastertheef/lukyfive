@@ -21,6 +21,7 @@ namespace Luckyfive.Models
         public virtual DbSet<ProfileSetting> ProfileSettings { get; set; }
         public virtual DbSet<TemporaryParticipant> TemporaryParticipants { get; set; }
         public virtual DbSet<TopActualAdvertisment> TopActualAdvertisments { get; set; }
+        public virtual DbSet<AdvertismentView> AdvertismentViews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,6 +60,7 @@ namespace Luckyfive.Models
 
             //modelBuilder.Configurations.Add(new TopActualAdvertismentConfiguration());
             modelBuilder.Entity<TopActualAdvertisment>();
+            modelBuilder.Entity<AdvertismentView>();
         }
 
         public virtual void Commit()

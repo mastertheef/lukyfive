@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Luckyfive.DTO
 {
-    public class TopActualAdvertismentDTO
+    public class AdvertismentViewDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -11,6 +11,7 @@ namespace Luckyfive.Service.Abstraction
     {
         Task<int> CreateAdvertismentAsync(AdvertismentDTO advertisment);
         Task CreatePhotoAsync(PhotoDTO photo);
-        Task<List<TopActualAdvertismentDTO>> GetAdvertismentsForHomePage();
+        Task<List<AdvertismentViewDTO>> GetAdvertismentsForHomePage();
+        Task<List<AdvertismentViewDTO>> GetAdvertismentsForUser(string userId);
     }
 }
