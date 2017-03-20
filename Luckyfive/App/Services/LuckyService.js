@@ -10,8 +10,43 @@
             });
         };
 
+        var editLucky = function(data, photos) {
+            return $.ajax({
+                method: 'POST',
+                url: '/Lucky/EditLucky',
+                data: {data: data, photos: photos}
+            });
+        };
+
+        var getMyAdvertisments = function() {
+            return $.ajax({
+                method: 'POST',
+                url: 'GetMyAdvertisments'
+            });
+        };
+
+        var getAdvertismentById = function(id) {
+            return $.ajax({
+                method: 'POST',
+                url: '/Lucky/GetAdvertismentById',
+                data: { id: id }
+            });
+        };
+
+        var getAdvertismentPhotos = function(advId) {
+            return $.ajax({
+                method: 'POST',
+                url: '/Lucky/GetAdvertismentPhotos',
+                data: { id: advId }
+            });
+        }
+
         return {
-            CreateLucky: createLucky
+            CreateLucky: createLucky,
+            EditLucky: editLucky,
+            GetMyAdvertisments: getMyAdvertisments,
+            GetAdvertismentById: getAdvertismentById,
+            GetAdvertismentPhotos: getAdvertismentPhotos
         };
     })();
 })(Window);

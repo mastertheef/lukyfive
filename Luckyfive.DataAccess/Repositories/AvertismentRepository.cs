@@ -5,7 +5,7 @@ using Luckyfive.Models;
 
 namespace Luckyfive.DataAccess.Repositories
 {
-    public class AvertismentRepository : RepositoryBase<Advertisment>, IAvertismentRepository
+    public class AvertismentRepository : RepositoryBase<Advertisment, int>, IAvertismentRepository
     {
         private const int CountOfAdvertismentsOnHomePage = 6;
 
@@ -25,7 +25,7 @@ namespace Luckyfive.DataAccess.Repositories
         }
     }
 
-    public interface IAvertismentRepository : IRepository<Advertisment>
+    public interface IAvertismentRepository : IRepository<Advertisment, int>
     {
         IQueryable<TopActualAdvertisment> GetForHomePage();
         IQueryable<AdvertismentView> GetAdvertismentViews();

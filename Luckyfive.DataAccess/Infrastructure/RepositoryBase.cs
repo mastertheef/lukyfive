@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Luckyfive.DataAccess.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T, TId> where T : class
     {
         #region Properties
         private LuckyfiveEntities dataContext;
@@ -63,7 +63,7 @@ namespace Luckyfive.DataAccess.Infrastructure
                 dbSet.Remove(obj);
         }
 
-        public virtual T GetById(string id)
+        public virtual T GetById(TId id)
         {
             return dbSet.Find(id);
         }

@@ -20,7 +20,11 @@ namespace Luckyfive.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var foundTop = await this.advService.GetAdvertismentsForHomePage();
-            foundTop.Add(foundTop.First()); // just to make at least 3 of them
+            if (foundTop.Any())
+            {
+                foundTop.Add(foundTop.First()); // just to make at least 3 of them
+                
+            }
             return View(foundTop);
         }
 

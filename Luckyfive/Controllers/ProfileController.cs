@@ -13,12 +13,18 @@ namespace Luckyfive.Web.Controllers
         private readonly IProfileService profileService;
         private readonly IMyEmailService emailService;
         private readonly IAccountService accountService;
+        private readonly IAdvertismentService advertismentService;
 
-        public ProfileController(IProfileService profileService, IMyEmailService emailService, IAccountService accountService)
+        public ProfileController(
+            IProfileService profileService, 
+            IMyEmailService emailService, 
+            IAccountService accountService,
+            IAdvertismentService advertismentService)
         {
             this.profileService = profileService;
             this.emailService = emailService;
             this.accountService = accountService;
+            this.advertismentService = advertismentService;
         }
 
         [HttpGet]
@@ -96,6 +102,21 @@ namespace Luckyfive.Web.Controllers
                     success = result.Succeeded,
                     message = !result.Succeeded ? "Provided password is incorrect" : string.Empty
                 }
+            };
+        }
+
+        public ActionResult MyAdvertisments()
+        {
+            return View("MyLuckyAdvertisments");
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetMyAdvertisments()
+        {
+            var found = await this.advertismentService.GetAdvertismentsForUser(User.Identity.GetUserId());
+            return new JsonResult
+            {
+                Data = found
             };
         }
     }

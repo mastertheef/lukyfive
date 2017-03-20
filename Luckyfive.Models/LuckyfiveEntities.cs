@@ -1,4 +1,6 @@
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace Luckyfive.Models
 {
@@ -65,7 +67,14 @@ namespace Luckyfive.Models
 
         public virtual void Commit()
         {
-            base.SaveChanges();
+            try
+            {
+                base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

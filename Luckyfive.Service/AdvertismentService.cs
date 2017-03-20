@@ -53,16 +53,49 @@ namespace Luckyfive.Service
             return this.mapAndReturn(found);
         }
 
-       
-
         public async Task<List<AdvertismentViewDTO>> GetAdvertismentsForUser(string userId)
         {
             var found =
                 await Task.Run(() =>
                 {
-                    return this.advRepo.GetAdvertismentViews().Where(x => x.OwnerId == userId).ToList();
+                    return this.advRepo.GetAdvertismentViews()
+                        .Where(x => x.OwnerId == userId && x.EndDate >= DateTime.Today).ToList();
                 });
             return this.mapAndReturn(found);
+        }
+
+        public async Task<AdvertismentDTO> GetAdvertismentById(int id)
+        {
+            var found = await Task.Run(() => this.advRepo.GetById(id));
+            return Mapper.Map<AdvertismentDTO>(found);
+        }
+
+        public async Task<List<PhotoDTO>> GetAdevrtismentPhotos(int id)
+        {
+            var found = await Task.Run(() => this.photoRepo.GetAdvertismentPhotos(id).ToList());
+            var result = new List<PhotoDTO>();
+            found.ForEach(x=>result.Add(Mapper.Map<PhotoDTO>(x)));
+            return result;
+        }
+
+        public async Task UpdateAdvertismentAsync(AdvertismentDTO advertisment)
+        {
+            var adv = this.advRepo.GetById(advertisment.Id);
+            adv.Name = advertisment.Name;
+            adv.Description = advertisment.Description;
+            this.advRepo.Update(adv);
+            await this.unitOfWork.CommitAsync();
+        }
+
+        public async Task DeletePhotoAsync(Guid id)
+        {
+            this.photoRepo.Delete(x => x.Id == id);
+            await unitOfWork.CommitAsync();
+        }
+
+        public async Task<bool> HasFirstPhoto(int id)
+        {
+            return await Task.Run(() => this.photoRepo.GetMany(x => x.AdvId == id).Any(x => x.First));
         }
 
         private async Task addPhoto(Photo photo)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Luckyfive.DataAccess.Repositories
 {
-    public class AccountRepository : RepositoryBase<AspNetUser>, IAccountRepository
+    public class AccountRepository : RepositoryBase<AspNetUser, int>, IAccountRepository
     {
         public AccountRepository(IDbFactory dbFactory) : base(dbFactory)
         {
@@ -16,7 +16,7 @@ namespace Luckyfive.DataAccess.Repositories
 
     }
 
-    public interface IAccountRepository : IRepository<AspNetUser>
+    public interface IAccountRepository : IRepository<AspNetUser, int>
     {
         
     }

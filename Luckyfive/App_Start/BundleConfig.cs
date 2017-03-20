@@ -29,6 +29,7 @@ namespace Luckyfive.Web
                 "~/Scripts/knockout.validation.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                "~/Scripts/moment.min.js",
                 "~/App/Services/*.js",
                 "~/App/*.js"
                 ));

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Luckyfive.DataAccess.Infrastructure
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T, TId> where T : class
     {
         // Marks an entity as new
         void Add(T entity);
@@ -18,7 +18,7 @@ namespace Luckyfive.DataAccess.Infrastructure
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
         // Get an entity by int id
-        T GetById(string id);
+        T GetById(TId id);
         // Get an entity using delegate
         T Get(Expression<Func<T, bool>> where);
         // Gets all entities of type T

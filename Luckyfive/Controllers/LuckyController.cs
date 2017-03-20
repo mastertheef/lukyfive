@@ -34,9 +34,78 @@ namespace Luckyfive.Web.Controllers
             if (Directory.Exists(tempFolder))
             {
                 var files = Directory.EnumerateFiles(tempFolder).ToList();
-                files.ForEach(x => System.IO.File.Delete(x));
+                files.ForEach(System.IO.File.Delete);
             }
             return View();
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(id);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> EditLucky(AdvertismentDTO data, EditPhotoDTO[] photos)
+        {
+            await this.advertismentService.UpdateAdvertismentAsync(data);
+
+            foreach (var photo in photos)
+            {
+                if (photo.ShouldDelete)
+                {
+                    await this.advertismentService.DeletePhotoAsync(photo.Id);
+                    await this.cloudService.Delete($"{data.Id}/{photo.Name}");
+                }
+            }
+
+            Session[Resources.AdvertsmentId] = data.Id;
+            return new JsonResult
+            {
+                Data = new {success = true}
+            };
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetAdvertismentById(int id)
+        {
+            var found = await this.advertismentService.GetAdvertismentById(id);
+            var result = new JsonResult();
+            if (found == null)
+            {
+                result.Data = new
+                {
+                    success = false,
+                    message = "No advertisment with such id was found."
+                };
+            }
+            else if (found.OwnerId != User.Identity.GetUserId())
+            {
+                result.Data = new
+                {
+                    success = false,
+                    message = "You are not allowed to edit this advertisment."
+                };
+            }
+            else
+            {
+                result.Data = new
+                {
+                    success = true,
+                    data = found
+                };
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetAdvertismentPhotos(int id)
+        {
+            var found = await this.advertismentService.GetAdevrtismentPhotos(id);
+            return new JsonResult
+            {
+                Data = found
+            };
         }
 
         [HttpPost]
@@ -60,9 +129,8 @@ namespace Luckyfive.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> Upload(HttpPostedFileBase[] files)
         {
-            //TODO: save ids of files to db, upload files to s3 and clear session
             var adId = (int) Session[Resources.AdvertsmentId];
-            var first = true;
+            var first = !await this.advertismentService.HasFirstPhoto(adId);
             foreach (var file in files)
             {
                 var photoId = Guid.NewGuid();
