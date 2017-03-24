@@ -6,9 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Luckyfive.Models;
-using Luckyfive.Web;
 
-namespace Luckyfive
+namespace Luckyfive.Web
 {
     public partial class Startup
     {
@@ -55,9 +54,9 @@ namespace Luckyfive
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "431987157145400",
+               appSecret: "17d069085d49f6fd2be31906fe5d7efa");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

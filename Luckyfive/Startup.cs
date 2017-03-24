@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Luckyfive.Startup))]
-namespace Luckyfive
+[assembly: OwinStartupAttribute(typeof(Luckyfive.Web.Startup))]
+namespace Luckyfive.Web
 {
     public partial class Startup
     {
