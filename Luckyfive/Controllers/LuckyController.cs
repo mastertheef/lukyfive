@@ -44,6 +44,11 @@ namespace Luckyfive.Web.Controllers
             return View(id);
         }
 
+        public ActionResult ViewLucky(int id)
+        {
+            return View(id);
+        }
+
         [HttpPost]
         public async Task<JsonResult> EditLucky(AdvertismentDTO data, EditPhotoDTO[] photos)
         {
@@ -152,6 +157,31 @@ namespace Luckyfive.Web.Controllers
             {
                 Data = new {result = true}
             };
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetLuckyView(int id)
+        {
+            var found = await this.advertismentService.GetAdvertismentById(id);
+            var result = new JsonResult();
+            if (found == null)
+            {
+                result.Data = new
+                {
+                    success = false,
+                    message = "No advertisment with such id was found."
+                };
+            }
+            else
+            {
+                result.Data = new
+                {
+                    success = true,
+                    data = found
+                };
+            }
+
+            return result;
         }
     }
 }

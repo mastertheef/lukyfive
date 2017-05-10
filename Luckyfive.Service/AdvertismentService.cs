@@ -68,7 +68,7 @@ namespace Luckyfive.Service
         public async Task<AdvertismentDTO> GetAdvertismentById(int id)
         {
             var found = await Task.Run(() => this.advRepo.GetById(id));
-            return Mapper.Map<AdvertismentDTO>(found);
+            return  Mapper.Map<AdvertismentDTO>(found);
         }
 
         public async Task<List<PhotoDTO>> GetAdevrtismentPhotos(int id)
