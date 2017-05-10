@@ -18,5 +18,6 @@ namespace Luckyfive.Service.Abstraction
         Task<List<PhotoDTO>> GetAdevrtismentPhotos(int id);
         Task UpdateAdvertismentAsync(AdvertismentDTO advertisment);
         Task<bool> HasFirstPhoto(int id);
+        Task<List<AdvertismentDTO>> GetReadyToFinishAdvertisments();
     }
 }

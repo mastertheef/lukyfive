@@ -94,6 +94,7 @@
     <Compile Include="EmailService.cs" />
     <Compile Include="Abstraction\IAccountService.cs" />
     <Compile Include="Abstraction\IMyEmailService.cs" />
+    <Compile Include="Enums\AdvertismentStatusEnum.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="MyEmailService.cs" />
     <Compile Include="ProfileService.cs" />

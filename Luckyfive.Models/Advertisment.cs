@@ -24,8 +24,6 @@ namespace Luckyfive.Models
         [StringLength(500)]
         public string Description { get; set; }
 
-        public bool Lucky { get; set; }
-
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
@@ -37,6 +35,9 @@ namespace Luckyfive.Models
         [Required]
         [StringLength(128)]
         public string OwnerId { get; set; }
+
+        [StringLength(128)]
+        public string WinnerId { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
 

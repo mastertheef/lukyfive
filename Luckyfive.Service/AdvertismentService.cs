@@ -9,10 +9,11 @@ using Luckyfive.DTO;
 using Luckyfive.Models;
 using Luckyfive.Service.Abstraction;
 using Luckyfive.DataAccess.Repositories;
+using Luckyfive.DTO.Enums;
 
 namespace Luckyfive.Service
 {
-    class AdvertismentService : IAdvertismentService
+    public class AdvertismentService : IAdvertismentService
     {
         private readonly IAvertismentRepository advRepo;
         private readonly IPhotoRepository photoRepo;
@@ -96,6 +97,14 @@ namespace Luckyfive.Service
         public async Task<bool> HasFirstPhoto(int id)
         {
             return await Task.Run(() => this.photoRepo.GetMany(x => x.AdvId == id).Any(x => x.First));
+        }
+
+        public async Task<List<AdvertismentDTO>> GetReadyToFinishAdvertisments()
+        {
+            var found = await Task.Run(() => this.advRepo.GetMany(x=>x.Status == (int)AdvertismentStatusEnum.Approved && x.EndDate <= DateTime.Today).ToList());
+            List<AdvertismentDTO> result = new List<AdvertismentDTO>();
+            found.ForEach(x=> result.Add(Mapper.Map<AdvertismentDTO>(x)));
+            return result;
         }
 
         private async Task addPhoto(Photo photo)
