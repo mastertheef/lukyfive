@@ -9,7 +9,7 @@ namespace Luckyfive.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery.js",
+                         "~/Scripts/jquery.js",
                          "~/Scripts/jquery.maskedinput.js",
                          "~/Scripts/jquery-migrate-1.2.1.js",
                          "~/Scripts/jquery.easing.1.3.js",
@@ -66,6 +66,8 @@ namespace Luckyfive.Web
                       "~/Content/font-awesome.css",
                       "~/Content/animate.css",
                       "~/Content/style.css"));
+
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
