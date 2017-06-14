@@ -3,8 +3,11 @@
     ViewBag.Title = "Info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <div class="content">
+        <h2>@ViewBag.Title</h2>
+        <h3>@ViewBag.Message</h3>
 
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
-
-<a href="#" class="btn-link" onclick='Window.App.AccountModule.sendConfirmationAgain("@Model.UserEmail")'>Send again</a>
+        <a href="#" class="btn-link" onclick='Window.App.AccountModule.sendConfirmationAgain("@Model.UserEmail")'>Send again</a>
+    </div>
+</div>
