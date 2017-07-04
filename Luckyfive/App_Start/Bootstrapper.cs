@@ -14,6 +14,7 @@ namespace Luckyfive.Web
         {
             SetAutofacContainer();
             AutoMapperConfiguration.Configure();
+            //ReactConfig.Configure();
         }
 
         private static void SetAutofacContainer()

@@ -256,7 +256,3 @@
 
 })(jQuery);
 
-
-$(window).load(function(){
-	$('.sf-menu').superfish()
-})

@@ -2,11 +2,13 @@
 {
     public class ProfileSettingsDTO
     {
-        public string UserId { get; set; }
-        public int CountryId { get; set; }
-        public int RegionId { get; set; }
-        public int CityId { get; set; }
-        public string ContactName { get; set; }
-        public string Phone { get; set; }
+        public string Id { get; set; }
+        public string FullName { get; set; }
+        public string Addr1 { get; set; }
+        public string Addr2 { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string Zip { get; set; }
+        public string Country { get; set; }
     }
 }
