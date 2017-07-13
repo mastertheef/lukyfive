@@ -22,10 +22,7 @@
 	    //tmstickup: 'Scripts/tmstickup',
 	    tmscripts: 'Sctipts/tm-scripts',
 		device: 'Scripts/device.min',
-		superfish: 'Scripts/superfish',
-        
-		profileService: 'Scripts/Services/ProfileService'
-		
+		superfish: 'Scripts/superfish'
 	},
 	shim: {
         jquery: {

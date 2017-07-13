@@ -53,7 +53,6 @@ namespace Luckyfive.Web
             //bundles.Add(new ScriptBundle("~/bundles/dropzone").Include(
             //    "~/Scripts/dropzone/dropzone.js"));
 
-
             bundles.Add(new StyleBundle("~/dropzone/css").Include(
                       "~/Scripts/dropzone/basic.css",
                       "~/Scripts/dropzone/dropzone.css"
@@ -71,3 +70,4 @@ namespace Luckyfive.Web
         }
     }
 }
+

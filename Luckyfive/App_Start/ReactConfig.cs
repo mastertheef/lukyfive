@@ -13,7 +13,9 @@ namespace Luckyfive.Web
             // your components as well as all of their dependencies.
             // See http://reactjs.net/ for more information. Example:
 		    ReactSiteConfiguration.Configuration
-		        .AddScript("~/Scripts/Components/Countries.jsx");
+                .AddScript("~/Scripts/require.js")
+                .AddScript("~/Scripts/require-config.js")
+                .AddScript("~/Scripts/Components/ContactInfo.jsx");
 
 
 		    // If you use an external build too (for example, Babel, Webpack,

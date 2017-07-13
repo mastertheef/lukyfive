@@ -52,6 +52,7 @@ namespace Luckyfive.Web.Controllers
         public async Task<JsonResult> SaveProfileSettings(ProfileSettingsDTO settings)
         {
             settings.Id = this.User.Identity.GetUserId();
+            settings.Country = settings.Country ?? "USA";
             await this.profileService.SaveProfileSettings(settings);
             return new JsonResult()
             {

@@ -14,9 +14,11 @@ namespace Luckyfive.Models
         public string Addr2 { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
-        public string Zip { get; set; }
+        public string ZipCode { get; set; }
         public string Country { get; set; }
+        public string Phone { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
     }
 }
+
