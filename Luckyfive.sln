@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luckyfive.DTO", "Luckyfive.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luckyfive.MainService", "Luckyfive.MainService\Luckyfive.MainService.csproj", "{C38A1EFD-B1EA-4758-9EEB-DB1D64725968}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luckyfive.PostService", "Luckyfive.PostService\Luckyfive.PostService.csproj", "{12C8CFD9-31F4-4BB4-8F6E-5CD556BFD330}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C38A1EFD-B1EA-4758-9EEB-DB1D64725968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38A1EFD-B1EA-4758-9EEB-DB1D64725968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38A1EFD-B1EA-4758-9EEB-DB1D64725968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C8CFD9-31F4-4BB4-8F6E-5CD556BFD330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C8CFD9-31F4-4BB4-8F6E-5CD556BFD330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C8CFD9-31F4-4BB4-8F6E-5CD556BFD330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C8CFD9-31F4-4BB4-8F6E-5CD556BFD330}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

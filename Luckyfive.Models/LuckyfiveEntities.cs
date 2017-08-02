@@ -1,19 +1,16 @@
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.Data.Entity;
 
 namespace Luckyfive.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class LuckyfiveEntities : DbContext
     {
         public LuckyfiveEntities()
             : base("name=LuckyfiveEntities")
         {
+            Database.SetInitializer<LuckyfiveEntities>(new CreateDatabaseIfNotExists<LuckyfiveEntities>());
         }
 
         public virtual DbSet<Advertisment> Advertisments { get; set; }

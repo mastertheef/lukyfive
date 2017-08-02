@@ -55,6 +55,11 @@
     <Compile Include="Advertisment.cs" />
     <Compile Include="AspNetUser.cs" />
     <Compile Include="LuckyfiveEntities.cs" />
+    <Compile Include="Migrations\201708020502038_SampleMigrations.cs" />
+    <Compile Include="Migrations\201708020502038_SampleMigrations.Designer.cs">
+      <DependentUpon>201708020502038_SampleMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Participation.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="ProfileSetting.cs" />
@@ -69,6 +74,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708020502038_SampleMigrations.resx">
+      <DependentUpon>201708020502038_SampleMigrations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

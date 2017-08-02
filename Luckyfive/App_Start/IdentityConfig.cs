@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Luckyfive.Models;
 using Luckyfive.Service;
+using Luckyfive.Web.Models;
 using Microsoft.Owin.Security.DataProtection;
 
 namespace Luckyfive.Web

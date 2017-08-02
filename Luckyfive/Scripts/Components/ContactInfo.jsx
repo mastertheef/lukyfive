@@ -18,6 +18,7 @@
                 if (data && data !== '') {
                     self.setState({ data: data });
                 }
+                self.state.isLoaded = true;
             });
         }
 
@@ -28,11 +29,16 @@
         }
 
         saveProfileSettings() {
-            profileService.saveProfileSettings(this.state.data);
+            var self = this;
+            this.state.isLoaded = false;
+            profileService.saveProfileSettings(this.state.data).then(function() {
+                self.state.isLoaded = true;
+            });
         }
 
         render() {
             return (
+               
        <div className="form-horizontal">
             <fieldset>
                 <div className="form-group">
